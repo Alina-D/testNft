@@ -1,0 +1,33 @@
+<configuration>
+
+   <!--используется в качестве переменной для указания уникального имени лог-файлам-->
+    <timestamp key="bySecond" datePattern="yyyyMMdd'T'HHmmss"/>
+
+    <!--настройки записи логов в лог-файл-->
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <!--название папки и файла, где будет сохранятся информация о тесте-->
+        <file>logback//test-${bySecond}.log</file>
+        <immediateFlush>true</immediateFlush>
+        <encoder>
+            <!--шаблон вывода логов-->
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %logger{100} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!--настройки вывода логов в консоль-->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <encoder>
+            <!--шаблон вывода логов-->
+            <pattern>%d{HH:mm:ss.SSS} [%thread] - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!--указывает, что логи будут сохраняться в файл и выводится в консоль-->
+    <root level="debug">
+        <appender-ref ref="FILE" />
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>
