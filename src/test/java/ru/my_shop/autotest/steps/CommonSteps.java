@@ -28,7 +28,7 @@ public class CommonSteps extends AbstractSteps{
     @И("^выводит информацию о первых - (\\d+) товарах$")
     public void printInfoAboutProducts(int amountProducts ) {
         // todo раскоментить, после испольлзования модели.
-//        catalogPage.printSearchResults(amountProducts);
+        catalogPage.printSearchResults(amountProducts);
     }
 
     @Тогда("^сортирует товары \"([^\"]*)\"$")
@@ -86,9 +86,9 @@ public class CommonSteps extends AbstractSteps{
         cardProductPage.addProductToCartFromProductCard();
     }
 
-    @И("^нажимает кнопку \"([^\"]*)\"$")
-    public void clickButton(String buttonName) {
-        commonPage.clickLink(buttonName);
+    @И("^переходит в корзину$")
+    public void goToCard( ) {
+        commonPage.goToCard();
     }
 
 
