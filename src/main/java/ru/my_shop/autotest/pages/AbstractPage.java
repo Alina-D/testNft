@@ -13,11 +13,10 @@ public abstract class AbstractPage {
     protected static final Logger logger
             = LoggerFactory.getLogger(AbstractPage.class);
 
-    protected int delayTimeMs = 100000;
-    protected int delayTime300 = 300000; //30000
-    protected long pollingIntervalMs = 50;
-    protected int timeForIsDisplay1 = 5;
-    protected int timeForIsDisplay2 = 15; //30
+    // Допустмое время ожидания появления элемента на странице (миллисекунды)
+    protected int waitingTimeMs = 10000;
+    // Интервал времени проверки появление ожидаемого элемента на странице (миллисекунды)
+    protected long intervalMs = 50;
 
 
     /**
@@ -36,7 +35,7 @@ public abstract class AbstractPage {
      * @param locator - локатор элемента (SelenideElement)
      */
     protected void clickElement(SelenideElement locator) {
-        locator.waitUntil(visible, delayTimeMs, pollingIntervalMs).click();
+        locator.waitUntil(visible, waitingTimeMs, intervalMs).click();
     }
 
     /**
@@ -45,7 +44,7 @@ public abstract class AbstractPage {
      * @param locator - локатор элемента (String)
      */
     protected void clickElement(String locator) {
-        getSelenideElement(locator).waitUntil(visible, delayTimeMs, pollingIntervalMs).click();
+        getSelenideElement(locator).waitUntil(visible, waitingTimeMs, intervalMs).click();
     }
 
     /**
@@ -54,7 +53,7 @@ public abstract class AbstractPage {
      * @param locator - локатор элемента
      */
     protected void clearField(SelenideElement locator) {
-        locator.waitUntil(visible, delayTimeMs, pollingIntervalMs).clear();
+        locator.waitUntil(visible, waitingTimeMs, intervalMs).clear();
     }
 
     /**
@@ -63,6 +62,6 @@ public abstract class AbstractPage {
      * @param locator - локатор элемента
      */
     protected void setValueInField(SelenideElement locator, String value) {
-        locator.waitUntil(visible, delayTimeMs, pollingIntervalMs).sendKeys(value);
+        locator.waitUntil(visible, waitingTimeMs, intervalMs).sendKeys(value);
     }
 }
