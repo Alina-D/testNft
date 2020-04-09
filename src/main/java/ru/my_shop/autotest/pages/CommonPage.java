@@ -3,6 +3,7 @@ package ru.my_shop.autotest.pages;
 import com.codeborne.selenide.SelenideElement;
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$x;
 import static java.lang.String.*;
 
 public class CommonPage extends AbstractPage {
@@ -18,10 +19,8 @@ public class CommonPage extends AbstractPage {
     // Ссылка на указанный элемент каталога (подкатегория/раздел/подраздел)
     private static final String CATALOG_ELEMENT_WITH_NAME_LINK_XPATH =
             "//tbody//a[contains(@href, '/shop/catalogue') and contains(@title, '%s')] ";
-    // todo не доделано
-    // Ссылка с указанным именем ()
-    private static final SelenideElement LINK_WITH_NAME_XPATH =
-            $("a[title^='Перейти на страницу корзины']");
+    // Ссылка [Корзина]
+    private static final SelenideElement CARD_LINK = $x("//div[@id = 'cart_total']/..");
 
 
     /**
@@ -73,12 +72,11 @@ public class CommonPage extends AbstractPage {
     }
 
     /**
-     * Нажать на ссылку по имени
-     * todo не доделано
-     * @param linkName - наименование ссылки
+     * Нажать на ссылку [Корзина]
      */
-    public CommonPage clickLink(String linkName) {
-
+    public CommonPage goToCard() {
+        clickElement(CARD_LINK);
+        logger.info(format("Нажать на ссылка [Корзина]"));
         return this;
     }
 }
