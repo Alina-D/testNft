@@ -21,6 +21,10 @@ public class CommonPage extends AbstractPage {
             "//tbody//a[contains(@href, '/shop/catalogue') and contains(@title, '%s')] ";
     // Ссылка [Корзина]
     private static final SelenideElement CARD_LINK = $x("//div[@id = 'cart_total']/..");
+    // Ссылка с названием
+    protected static final String LINK_WITH_NAME_XPATH = "//a[contains(., '%s')]";
+
+
 
 
     /**
