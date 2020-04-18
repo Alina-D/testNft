@@ -1,5 +1,6 @@
 package ru.my_shop.autotest.steps;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.ru.И;
 import cucumber.api.java.ru.Когда;
 import cucumber.api.java.ru.То;
@@ -25,25 +26,21 @@ public class CommonSteps extends AbstractSteps{
         catalogPage.checkSearchResults(productName);
     }
 
-    @И("^выводит информацию о первых - (\\d+) товарах$")
-    public void printInfoAboutProducts(int amountProducts ) {
-        // todo раскоментить, после испольлзования модели.
-        catalogPage.printSearchResults(amountProducts);
-    }
-
     @Тогда("^сортирует товары \"([^\"]*)\"$")
     public void sortProduct(String typeSorting) {
         catalogPage.sortProduct(typeSorting);
     }
 
-    @И("^проверяет сортировку \"([^\"]*)\"$")
-    public void checkSorting(String typeSorting) {
-        catalogPage.checkSorting(typeSorting);
+    @И("^проверяет сортировку товаров в алфавитном порядке$")
+    public void checkSortingAlphabetically() {
+        catalogPage.checkSortingAlphabetically();
     }
 
-    @И("^открыть товар по номеру (\\d+) в списке$")
-    public void openProductInList(int numberProduct) {
-        catalogPage.openProductByNumberInList(numberProduct);
+    @И("^откывает карточку товара по имени товара$")
+    public void openCardProductByName() {
+        catalogPage.openCardProductByName();
+        cardProductPage.checksThatProductCardContainsCorrectInfo();
+
     }
 
     @Когда("^выводит информацию о товаре$")
@@ -92,13 +89,18 @@ public class CommonSteps extends AbstractSteps{
     }
 
 
-    @И("^устанавливает параметр \"([^\"]*)\"$")
-    public void setParameter(String parameterName) {
-
+    @И("^выводит информацию о найденных товарах$")
+    public void printInfoAboutProductsFound () {
+        catalogPage.printInfoAboutProductsFound();
     }
 
-    @И("^проверяет наличие и количество товара \"([^\"]*)\" шт в корзине$")
-    public void checksAvailabilityAndAmountOfProductInCart(String amountProduct) {
+    @Когда("^получает информацию о товаре на главной странице$")
+    public void getProductInfoOnHomePage() {
+        catalogPage.getProductInfoOnHomePage();
+    }
 
+    @И("^получает информацию о товаре на карточке товара$")
+    public void getProductInfoOnCardProduct() {
+        cardProductPage.getProductInfoOnCardProduct();
     }
 }

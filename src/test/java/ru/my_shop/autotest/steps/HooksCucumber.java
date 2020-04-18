@@ -19,6 +19,7 @@ public class HooksCucumber {
         open("https://my-shop.ru");
     }
 
+    // todo нормальный логеер вместо принта
     @After
     public void teardown() {
         System.out.println("Проверка: Хук @After работает");
