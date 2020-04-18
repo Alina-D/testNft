@@ -3,6 +3,7 @@ package ru.my_shop.autotest.pages;
 import com.codeborne.selenide.SelenideElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ru.my_shop.autotest.helpers.ConfigContainer;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
@@ -12,6 +13,8 @@ public abstract class AbstractPage {
 
     protected static final Logger logger
             = LoggerFactory.getLogger(AbstractPage.class);
+    protected ConfigContainer config = ConfigContainer.getInstance();
+
 
     // Допустмое время ожидания появления элемента на странице (миллисекунды)
     protected int waitingTimeMs = 10000;
