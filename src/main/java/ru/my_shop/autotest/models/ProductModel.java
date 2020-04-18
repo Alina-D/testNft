@@ -2,6 +2,8 @@ package ru.my_shop.autotest.models;
 
 import java.util.HashMap;
 
+import static java.lang.String.format;
+
 public class ProductModel {
 
     private String productName;
@@ -13,16 +15,10 @@ public class ProductModel {
 
     /**
      * Конструктор класса
+     * (при создании объекта обязательно указывается имя товара)
      */
-    public ProductModel(String productName, String priceProduct, String shotDescriptionProduct,
-                        String productAvailability, String deliveryDate,
-                        HashMap<String, String> detailInfoProduct) {
+    public ProductModel(String productName) {
         this.productName = productName;
-        this.priceProduct = priceProduct;
-        this.shotDescriptionProduct = shotDescriptionProduct;
-        this.productAvailability = productAvailability;
-        this.deliveryDate = deliveryDate;
-        this.detailInfoProduct = detailInfoProduct;
     }
 
     /**
@@ -120,17 +116,18 @@ public class ProductModel {
     /**
      * Переопределенный метод toString
      * @return возвращает все заначения объекта в формате строки
+     * todo выводить только ту информацию, которая есть у товара (с помощью хашмап) и добавить разделитель в начале или конце
      */
     @Override
     public String toString() {
-        return "ProductModel{" +
-                "productName='" + productName + '\'' +
-                ", priceProduct='" + priceProduct + '\'' +
-                ", shotDescriptionProduct='" + shotDescriptionProduct + '\'' +
-                ", productAvailability='" + productAvailability + '\'' +
-                ", deliveryDate='" + deliveryDate + '\'' +
-                ", detailInfoProduct=" + detailInfoProduct +
-                '}';
+        return format("Информация о товаре:  \n" +
+                "наименование = '%s', \n" +
+                "цена = '%s', \n" +
+                "краткое описание = '%s', \n" +
+                "наличие = '%s', \n" +
+                "дата доставки = '%s', \n" +
+                "детальное описание = %s",
+                productName, priceProduct, shotDescriptionProduct, productAvailability, deliveryDate, detailInfoProduct);
     }
 
 }
