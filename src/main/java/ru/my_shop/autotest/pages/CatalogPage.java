@@ -135,6 +135,27 @@ public class CatalogPage extends CommonPage {
         logger.info("Открыта карточка товар по имени: {}", numberProduct);
         return this;
     }
+
+    /**
+     * Печатает информацию о найденных товарах в консоль
+     */
+    public CatalogPage printInfoAboutProductsFound() {
+        ArrayList<ProductModel> listProduct = saveInfoAboutProductsFound();
+        listProduct.forEach(product ->
+                logger.info(product.toString()));
+        return this;
+    }
+
+    /**
+     * Получает информацию о товаре на главной странице
+     * todo доделать
+     */
+    public CatalogPage getProductInfoOnHomePage() {
+        config.setParameter("nameProduct", productInfoOnHomePage.get(0).getText());
+        config.setParameter("manufacturerProduct", productInfoOnHomePage.get(1).getText());
+        config.setParameter("priceProduct", productInfoOnHomePage.get(2).getText());
+        return this;
+    }
 }
 
 
