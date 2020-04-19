@@ -22,6 +22,7 @@ public class CatalogPage extends CommonPage {
     // todo Поля класса.
     private ConfigContainer config = ConfigContainer.getInstance();
 
+
     // todo конструктор
     public CatalogPage() {
         super();
@@ -66,39 +67,47 @@ public class CatalogPage extends CommonPage {
     }
 
     /**
-     * Сохраняет информацию о найденных товарах
+     * Получить информацию о найденных товарах
      */
-    private ArrayList<ProductModel> saveInfoAboutProductsFound() {
+    public ArrayList<ProductModel> getInfoAboutProductsFound() {
         ArrayList<ProductModel> listProduct = new ArrayList<>();
         for (int index = 0; index < nameProductsList.size(); index++) {
 
-            // Получить имя товара
-            String productName = nameProductsList.get(index).text();
-            ProductModel product = new ProductModel(productName);
+            ProductModel product = new ProductModel();
+            getInfoAboutProduct(index, product);
 
-            // Установить цену товара
-            String priceProducts = priceProductsList.get(index).text();
-            product.setPriceProduct(priceProducts);
-
-            // Установить краткое описание товара
-            String shotDescriptionProducts = shortDescriptionProductsList.get(index).text();
-            product.setShotDescriptionProduct(shotDescriptionProducts);
-
-            // Установить информацию о наличии товара
-            String infoOnAvailabilityAndDelivery = infoOnAvailabilityAndDeliveryProductsList.get(index).text();
-            String productAvailabilityInfo = infoOnAvailabilityAndDelivery.substring(
-                    infoOnAvailabilityAndDelivery.indexOf('\n') + 1, infoOnAvailabilityAndDelivery.indexOf(';'));
-            product.setProductAvailability(productAvailabilityInfo);
-
-            // Установить дату доставки товара
-            String deliveryDate = infoOnAvailabilityAndDelivery.substring(
-                    infoOnAvailabilityAndDelivery.indexOf(':') + 2, infoOnAvailabilityAndDelivery.lastIndexOf('\n'));
-            product.setDeliveryDate(deliveryDate);
             listProduct.add(product);
         }
-        config.setParameter("listProduct", listProduct);
-        logger.info("Информация о найденных товарах успешно сохранена");
+        logger.info("Информация о найденных товарах успешно получена");
         return listProduct;
+    }
+
+    /**
+     * Получить информацию о товаре
+     */
+    public void getInfoAboutProduct(int index, ProductModel product) {
+        // Получить имя товара
+        String productName = nameProductsList.get(index).text();
+        product.setProductName(productName);
+
+        // Установить цену товара
+        String priceProducts = priceProductsList.get(index).text();
+        product.setPriceProduct(priceProducts);
+
+        // Установить краткое описание товара
+        String shotDescriptionProducts = shortDescriptionProductsList.get(index).text();
+        product.setShotDescriptionProduct(shotDescriptionProducts);
+
+        // Установить информацию о наличии товара
+        String infoOnAvailabilityAndDelivery = infoOnAvailabilityAndDeliveryProductsList.get(index).text();
+        String productAvailabilityInfo = infoOnAvailabilityAndDelivery.substring(
+                infoOnAvailabilityAndDelivery.indexOf('\n') + 1, infoOnAvailabilityAndDelivery.indexOf(';'));
+        product.setProductAvailability(productAvailabilityInfo);
+
+        // Установить дату доставки товара
+        String deliveryDate = infoOnAvailabilityAndDelivery.substring(
+                infoOnAvailabilityAndDelivery.indexOf(':') + 2, infoOnAvailabilityAndDelivery.lastIndexOf('\n'));
+        product.setDeliveryDate(deliveryDate);
     }
 
     /**
@@ -115,7 +124,7 @@ public class CatalogPage extends CommonPage {
      * Проверить, что товары отсортированы в алфавитном порядке
      */
     public CommonPage checkSortingAlphabetically() {
-        ArrayList<ProductModel> listProduct = saveInfoAboutProductsFound();
+        ArrayList<ProductModel> listProduct = getInfoAboutProductsFound();
         ArrayList<String> listOfProductNames = new ArrayList<>();
         ArrayList<String> listOfProductNamesAlphabetically = new ArrayList<>();
         listProduct.forEach(product -> {
@@ -133,9 +142,10 @@ public class CatalogPage extends CommonPage {
      * Открыть карточку товара по номеру
      */
     public CatalogPage openCardProductByName() {
-        String numberProduct = config.getParameter("nameProduct").toString();
+        String numberProduct = config.getProductModel().getProductName();
         clickElement(format(LINK_WITH_NAME_XPATH, numberProduct));
         logger.info("Открыта карточка товар по имени: {}", numberProduct);
+
         return this;
     }
 
@@ -143,22 +153,22 @@ public class CatalogPage extends CommonPage {
      * Печатает информацию о найденных товарах в консоль
      */
     public CatalogPage printInfoAboutProductsFound() {
-        ArrayList<ProductModel> listProduct = saveInfoAboutProductsFound();
+        ArrayList<ProductModel> listProduct = getInfoAboutProductsFound();
         listProduct.forEach(product ->
                 logger.info(product.toString()));
         return this;
     }
 
     /**
-     * Получает информацию о товаре на главной странице
-     * todo доделать
+     * Открывает карточку товара
      */
-    public CatalogPage getProductInfoOnHomePage() {
-        config.setParameter("nameProduct", productInfoOnHomePage.get(0).getText());
-        config.setParameter("manufacturerProduct", productInfoOnHomePage.get(1).getText());
-        config.setParameter("priceProduct", productInfoOnHomePage.get(2).getText());
+    public CatalogPage openCardProduct() {
+        clickElement(nameProductsList.get(0));
+        logger.info("Открыт карточку товара");
         return this;
     }
+
+
 }
 
 
