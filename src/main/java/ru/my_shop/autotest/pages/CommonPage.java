@@ -1,10 +1,13 @@
 package ru.my_shop.autotest.pages;
 
 import com.codeborne.selenide.SelenideElement;
+import org.junit.Assert;
+import ru.my_shop.autotest.models.ProductModel;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 import static java.lang.String.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Класс описывающий общую логику для всех страниц
@@ -26,7 +29,10 @@ public class CommonPage extends AbstractPage {
     private static final SelenideElement CARD_LINK = $x("//div[@id = 'cart_total']/..");
     // Ссылка с названием
     protected static final String LINK_WITH_NAME_XPATH = "//a[contains(., '%s')]";
-
+    // Заголовок страницы
+    private static final SelenideElement titlePage = $("h1");
+    // Иконка корзины
+    protected static final SelenideElement cart_icon = $("#cart_total");
 
 
 
@@ -83,7 +89,16 @@ public class CommonPage extends AbstractPage {
      */
     public CommonPage goToCard() {
         clickElement(CARD_LINK);
-        logger.info(format("Нажать на ссылка [Корзина]"));
+        logger.info(format("Нажата ссылка [Корзина]"));
+        return this;
+    }
+
+    /**
+     * Выводит информацию о товаре
+     */
+    public CommonPage printInfoProduct() {
+        ProductModel product = config.getProductModel();
+        logger.info(product.toString());
         return this;
     }
 }
