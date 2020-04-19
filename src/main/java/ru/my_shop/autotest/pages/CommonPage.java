@@ -6,6 +6,9 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 import static java.lang.String.*;
 
+/**
+ * Класс описывающий общую логику для всех страниц
+ */
 public class CommonPage extends AbstractPage {
 
     // Поле "Поиск"

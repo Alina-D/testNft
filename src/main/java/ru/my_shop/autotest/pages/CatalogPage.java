@@ -13,6 +13,9 @@ import static com.codeborne.selenide.Selenide.$$x;
 import static java.lang.String.format;
 import static org.junit.Assert.*;
 
+/**
+ * Класс описывающий страницу "Каталог"
+ */
 public class CatalogPage extends CommonPage {
 
 

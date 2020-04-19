@@ -9,6 +9,9 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
+/**
+ * Класс предоставляет базовый функционал для классов-наследников
+ */
 public abstract class AbstractPage {
 
     protected static final Logger logger

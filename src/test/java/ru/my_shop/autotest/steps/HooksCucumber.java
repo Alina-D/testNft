@@ -19,7 +19,7 @@ public class HooksCucumber {
         open("https://my-shop.ru");
     }
 
-    // todo нормальный логеер вместо принта
+    // todo нормальный логеер вместо принта, переименовать текст логгерров в хуках
     @After
     public void teardown() {
         System.out.println("Проверка: Хук @After работает");

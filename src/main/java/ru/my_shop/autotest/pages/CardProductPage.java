@@ -7,6 +7,10 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 import static org.junit.Assert.*;
 
+
+/**
+ * Класс описывающий страницу "Карточка товара"
+ */
 public class CardProductPage extends CommonPage{
 
 
