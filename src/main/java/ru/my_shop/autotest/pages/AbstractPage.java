@@ -14,8 +14,7 @@ import static com.codeborne.selenide.Selenide.$x;
  */
 public abstract class AbstractPage {
 
-    protected static final Logger logger
-            = LoggerFactory.getLogger(AbstractPage.class);
+    protected static final Logger logger = LoggerFactory.getLogger(AbstractPage.class);
     protected ConfigContainer config = ConfigContainer.getInstance();
 
 
