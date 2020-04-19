@@ -4,22 +4,24 @@ import java.util.HashMap;
 
 import static java.lang.String.format;
 
+
+/**
+ * Класс описывающий товар
+ */
 public class ProductModel {
 
+    // todo убрать из названия переменных product
     private String productName;
     private String priceProduct;
     private String shotDescriptionProduct;
     private String productAvailability;
     private String deliveryDate;
-    private HashMap<String, String> detailInfoProduct;
+    private HashMap<String, String> detailInfoProduct = new HashMap<>();
 
     /**
      * Конструктор класса
-     * (при создании объекта обязательно указывается имя товара)
      */
-    public ProductModel(String productName) {
-        this.productName = productName;
-    }
+    public ProductModel() {}
 
     /**
      * Получить имя товара
@@ -103,14 +105,6 @@ public class ProductModel {
         return this;
     }
 
-    /**
-     * Установить детальное описание товара
-     * @return this
-     */
-    public ProductModel setDetailInfoProduct(HashMap<String, String> detailInfoProduct) {
-        this.detailInfoProduct = detailInfoProduct;
-        return this;
-    }
 
 
     /**
