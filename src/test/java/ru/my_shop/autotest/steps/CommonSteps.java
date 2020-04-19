@@ -5,15 +5,23 @@ import cucumber.api.java.ru.И;
 import cucumber.api.java.ru.Когда;
 import cucumber.api.java.ru.То;
 import cucumber.api.java.ru.Тогда;
+import ru.my_shop.autotest.helpers.ConfigContainer;
+import ru.my_shop.autotest.models.ProductModel;
 import ru.my_shop.autotest.pages.*;
 
-
+/**
+ * Класс описывающий общие шаги тестов
+ */
 public class CommonSteps extends AbstractSteps{
 
     private CommonPage commonPage = new CommonPage();
     private CardProductPage cardProductPage = new CardProductPage();
     private CatalogPage catalogPage = new CatalogPage();
+    // todo открытие товара должно быть в HomePAge
     private HomePage homePage = new HomePage();
+    private CartPage cartPage = new CartPage();
+    private ConfigContainer config = ConfigContainer.getInstance();
+
 
     @Когда("^выполняет поиск товара \"([^\"]*)\"$")
     public void searchProduct(String productName) {
@@ -45,7 +53,7 @@ public class CommonSteps extends AbstractSteps{
 
     @Когда("^выводит информацию о товаре$")
     public void printProductInfo() {
-
+        commonPage.printInfoProduct();
     }
 
     @И("^выбирает раздел \"([^\"]*)\"$")
@@ -73,13 +81,13 @@ public class CommonSteps extends AbstractSteps{
         commonPage.selectCatalogElement(subsectionName);
     }
 
-    @И("^устанавливает количество товара \"([^\"]*)\" шт в блоке 'Купить'$")
-    public void setAmountOfProductInBuyBlock(String amountProduct) {
+    @И("^устанавливает количество товара (\\d+) шт в блоке 'Купить'$")
+    public void setAmountOfProductInBuyBlock(int amountProduct) {
         cardProductPage.setAmountOfProductInBuyBlock(amountProduct);
     }
 
     @И("^добавляет товар в корзину из каточки товара$")
-    public void addProductToCartFromProductCard () {
+    public void addProductToCartFromProductCard () throws InterruptedException {
         cardProductPage.addProductToCartFromProductCard();
     }
 
@@ -94,13 +102,30 @@ public class CommonSteps extends AbstractSteps{
         catalogPage.printInfoAboutProductsFound();
     }
 
-    @Когда("^получает информацию о товаре на главной странице$")
-    public void getProductInfoOnHomePage() {
-        catalogPage.getProductInfoOnHomePage();
+    @Когда("^получает и сохраняет информацию о товаре на главной странице$")
+    public void getAndSaveProductInfoOnHomePage() {
+        homePage.getAndSaveProductInfoOnHomePage();
     }
 
-    @И("^получает информацию о товаре на карточке товара$")
-    public void getProductInfoOnCardProduct() {
-        cardProductPage.getProductInfoOnCardProduct();
+    @И("^получает и сохраняет информацию о товаре на карточке товара$")
+    public void getAndSaveProductInfoOnCardProduct() {
+        cardProductPage.getAndSaveProductInfoOnCardProduct();
+    }
+
+    @И("^откывает карточку товара$")
+    public void openCardProduct()  {
+        catalogPage.openCardProduct();
+    }
+
+    @И("^проверяет наличие и количество товара (\\d+) шт в корзине$")
+    public void checkAvailabilityOfProductInCardInAmount(int amount) {
+        cartPage.checkAvailabilityOfProductInAmount(amount);
+    }
+
+    @И("^получает и сохраняет информацию о товаре на странице каталога$")
+    public void getAndSaveProductInfoOnCatalogPage() {
+        // todo указывать номер товара в списке
+        ProductModel product = config.getProductModel();
+        catalogPage.getInfoAboutProduct(0, product);
     }
 }
