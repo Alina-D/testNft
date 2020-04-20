@@ -4,51 +4,44 @@ import java.util.HashMap;
 
 import static java.lang.String.format;
 
-
 /**
  * Класс описывающий товар
  */
 public class ProductModel {
 
-    // todo убрать из названия переменных product
-    private String productName;
-    private String priceProduct;
-    private String shotDescriptionProduct;
-    private String productAvailability;
+    private String name;
+    private String price;
+    private String shotDescription;
+    private String availabilityInfo;
     private String deliveryDate;
-    private HashMap<String, String> detailInfoProduct = new HashMap<>();
-
-    /**
-     * Конструктор класса
-     */
-    public ProductModel() {}
+    private HashMap<String, String> detailInfo = new HashMap<>();
 
     /**
      * Получить имя товара
      */
-    public String getProductName() {
-        return productName;
+    public String getName() {
+        return name;
     }
 
     /**
      * Получить сумму товара
      */
-    public String getPriceProduct() {
-        return priceProduct;
+    public String getPrice() {
+        return price;
     }
 
     /**
      * Получить краткое описание товара
      */
-    public String getShotDescriptionProduct() {
-        return shotDescriptionProduct;
+    public String getShotDescription() {
+        return shotDescription;
     }
 
     /**
      * Получить информацию о наличии товара
      */
-    public String getProductAvailabilityInfo() {
-        return productAvailability;
+    public String getAvailabilityInfo() {
+        return availabilityInfo;
     }
 
     /**
@@ -61,39 +54,39 @@ public class ProductModel {
     /**
      * Получить детальное описание товара
      */
-    public HashMap<String, String> getDetailInfoProduct() {
-        return detailInfoProduct;
+    public HashMap<String, String> getDetailInfo() {
+        return detailInfo;
     }
 
     /**
      * Установить имя товара
      */
-    public ProductModel setProductName(String productName) {
-        this.productName = productName;
+    public ProductModel setName(String name) {
+        this.name = name;
         return this;
     }
 
     /**
      * Установить сумму товара
      */
-    public ProductModel setPriceProduct(String priceProduct) {
-        this.priceProduct = priceProduct;
+    public ProductModel setPrice(String price) {
+        this.price = price;
         return this;
     }
 
     /**
      * Установить краткое описание товара
      */
-    public ProductModel setShotDescriptionProduct(String shotDescriptionProduct) {
-        this.shotDescriptionProduct = shotDescriptionProduct;
+    public ProductModel setShotDescription(String shotDescription) {
+        this.shotDescription = shotDescription;
         return this;
     }
 
     /**
      * Установить информацию о наличии товара
      */
-    public ProductModel setProductAvailability(String productAvailability) {
-        this.productAvailability = productAvailability;
+    public ProductModel setAvailabilityInfo(String availabilityInfo) {
+        this.availabilityInfo = availabilityInfo;
         return this;
     }
 
@@ -106,22 +99,21 @@ public class ProductModel {
     }
 
 
-
     /**
      * Переопределенный метод toString
+     *
      * @return возвращает все заначения объекта в формате строки
-     * todo выводить только ту информацию, которая есть у товара (с помощью хашмап) и добавить разделитель в начале или конце
      */
     @Override
     public String toString() {
         return format("Информация о товаре:  \n" +
-                "наименование = '%s', \n" +
-                "цена = '%s', \n" +
-                "краткое описание = '%s', \n" +
-                "наличие = '%s', \n" +
-                "дата доставки = '%s', \n" +
-                "детальное описание = %s",
-                productName, priceProduct, shotDescriptionProduct, productAvailability, deliveryDate, detailInfoProduct);
+                        "наименование = '%s', \n" +
+                        "цена = '%s', \n" +
+                        "краткое описание = '%s', \n" +
+                        "наличие = '%s', \n" +
+                        "дата доставки = '%s', \n" +
+                        "детальное описание = %s",
+                name, price, shotDescription, availabilityInfo, deliveryDate, detailInfo);
     }
 
 }
