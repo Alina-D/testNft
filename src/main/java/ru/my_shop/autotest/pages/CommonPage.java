@@ -1,7 +1,6 @@
 package ru.my_shop.autotest.pages;
 
 import com.codeborne.selenide.SelenideElement;
-import org.junit.Assert;
 import ru.my_shop.autotest.models.ProductModel;
 
 import static com.codeborne.selenide.Selenide.$;
@@ -14,27 +13,35 @@ import static org.junit.Assert.assertEquals;
  */
 public class CommonPage extends AbstractPage {
 
-    // Поле "Поиск"
-    private static final SelenideElement SEARCH_FIELD = $("input#f14_6");
-    // Кнопка "Поиск"
-    private static final SelenideElement SEARCH_BUTTON = $("input#search_submit");
+    // ------------------------------------------- Конструктор -----------------------------------------------
+    public CommonPage () {
+        super();
+    }
+
+    // --------------------------------------------- Локаторы ------------------------------------------------
+
+    // ---------------------------------------------- String -------------------------------------------------
     // Элемент меню с указанным наименованием (на странице содержится несколько элементов меню)
     private static final String MENU_ELEMENT_WITH_NAME_XPATH = "//div[@id = 'menu-catalog-btn']//div[contains(., '%s')]";
-    // Ссылка на указанную категорию (на странице содержится несколько категорий)
+    // Ссылка на указанную категорию (на странице содержится несколько категорий товаров)
     private static final String CATEGORY_WITH_NAME_LINK_XPATH = "//a[contains(@id, 'top')]/div[contains(., '%s')]";
     // Ссылка на указанный элемент каталога (подкатегория/раздел/подраздел)
     private static final String CATALOG_ELEMENT_WITH_NAME_LINK_XPATH =
             "//tbody//a[contains(@href, '/shop/catalogue') and contains(@title, '%s')] ";
+    // Ссылка с названием todo подумать над комментом
+    protected static final String LINK_WITH_NAME_XPATH = "//a[contains(., '%s')]";
+
+    // ------------------------------------------ SelenideElement ---------------------------------------------
+    // Поле "Поиск"
+    private static final SelenideElement SEARCH_FIELD = $("input#f14_6");
+    // Кнопка "Поиск"
+    private static final SelenideElement SEARCH_BUTTON = $("input#search_submit");
     // Ссылка [Корзина]
     private static final SelenideElement CARD_LINK = $x("//div[@id = 'cart_total']/..");
-    // Ссылка с названием
-    protected static final String LINK_WITH_NAME_XPATH = "//a[contains(., '%s')]";
-    // Заголовок страницы
-    private static final SelenideElement titlePage = $("h1");
     // Иконка корзины
-    protected static final SelenideElement cart_icon = $("#cart_total");
+    protected static final SelenideElement CART_ICON = $("#cart_total");
 
-
+    // --------------------------------------------- Методы ------------------------------------------------
 
     /**
      * Поиск товара по имени товара
@@ -89,7 +96,7 @@ public class CommonPage extends AbstractPage {
      */
     public CommonPage goToCard() {
         clickElement(CARD_LINK);
-        logger.info(format("Нажата ссылка [Корзина]"));
+        logger.info("Нажата ссылка [Корзина]");
         return this;
     }
 
@@ -97,8 +104,18 @@ public class CommonPage extends AbstractPage {
      * Выводит информацию о товаре
      */
     public CommonPage printInfoProduct() {
-        ProductModel product = config.getProductModel();
+        ProductModel product = config.accessProductModel();
         logger.info(product.toString());
+        return this;
+    }
+
+    /**
+     * Открыть карточку товара по номеру
+     */
+    public CommonPage openCardProductByName() {
+        String numberProduct = config.accessProductModel().getName();
+        clickElement(format(LINK_WITH_NAME_XPATH, numberProduct));
+        logger.info("Открыта карточка товар по имени: {}", numberProduct);
         return this;
     }
 }

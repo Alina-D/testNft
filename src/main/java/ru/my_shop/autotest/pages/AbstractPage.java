@@ -14,15 +14,20 @@ import static com.codeborne.selenide.Selenide.$x;
  */
 public abstract class AbstractPage {
 
+    // ------------------------------------------- Поля класса ----------------------------------------------
+    protected ConfigContainer config;
     protected static final Logger logger = LoggerFactory.getLogger(AbstractPage.class);
-    protected ConfigContainer config = ConfigContainer.getInstance();
-
-
     // Допустмое время ожидания появления элемента на странице (миллисекунды)
     protected int waitingTimeMs = 10000;
     // Интервал времени проверки появление ожидаемого элемента на странице (миллисекунды)
     protected long intervalMs = 50;
 
+    // ------------------------------------------- Конструктор -----------------------------------------------
+    public AbstractPage() {
+        this.config = ConfigContainer.getInstance();
+    }
+
+    // --------------------------------------------- Методы --------------------------------------------------
 
     /**
      * Возвращает элемент типа SelenideElement ($x или $) автоматически распознав тип локатора по его содержимому.

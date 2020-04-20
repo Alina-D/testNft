@@ -8,27 +8,37 @@ import static com.codeborne.selenide.Selenide.$$;
 /**
  * Класс описывающий страницу "Главная страница"
  */
-public class HomePage extends CommonPage{
+public class HomePage extends CommonPage {
 
+    // ------------------------------------------- Конструктор -----------------------------------------------
+    public HomePage () {
+        super();
+    }
 
-    // Информация о товаре на главной странице
-    private final ElementsCollection productInfoOnHomePage = $$("[data-o='show_case_6']  .hb_text div");
+    // --------------------------------------------- Локаторы ------------------------------------------------
 
+    // ---------------------------------------- ElementsCollection -------------------------------------------
+    // Список с информацией о товаре на главной странице
+    private final ElementsCollection PRODUCT_INFO_ON_HOME_PAGE_LIST = $$("[data-o='show_case_6']  .hb_text div");
+
+    // --------------------------------------------- Методы ------------------------------------------------
+
+    // todo проверить названия методов
     /**
      * Получает и сохраняет информацию о товаре на главной странице
      */
     public HomePage getAndSaveProductInfoOnHomePage() {
         // получает информацию о товаре
-        String productName = productInfoOnHomePage.get(0).getText();
-        String manufacturerProducts = productInfoOnHomePage.get(1).getText();
-        String priceProducts = productInfoOnHomePage.get(2).getText();
+        String productName = PRODUCT_INFO_ON_HOME_PAGE_LIST.get(0).getText();
+        String manufacturerProducts = PRODUCT_INFO_ON_HOME_PAGE_LIST.get(1).getText();
+        String priceProducts = PRODUCT_INFO_ON_HOME_PAGE_LIST.get(2).getText();
 
         // сохраняет информацию о товаре
-        ProductModel product = config.getProductModel();
+        ProductModel product = config.accessProductModel();
         logger.info(product.toString());
-        product.setProductName(productName);
-        product.setPriceProduct(priceProducts);
-        product.getDetailInfoProduct().put("Производитель", manufacturerProducts);
+        product.setName(productName);
+        product.setPrice(priceProducts);
+        product.getDetailInfo().put("Производитель", manufacturerProducts);
         logger.info(product.toString());
         return this;
     }

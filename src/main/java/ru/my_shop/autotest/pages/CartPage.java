@@ -2,11 +2,10 @@ package ru.my_shop.autotest.pages;
 
 import com.codeborne.selenide.SelenideElement;
 
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$x;
-import static com.codeborne.selenide.Selenide.$x;
+import static com.codeborne.selenide.Selenide.*;
 import static java.lang.String.format;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 
 /**
@@ -14,21 +13,32 @@ import static org.junit.Assert.*;
  */
 public class CartPage extends CommonPage {
 
-    // Ячейки с информацией указанного товара (в корзине может быть нескоько товаров)
+    // ------------------------------------------- Конструктор -----------------------------------------------
+    public CartPage () {
+        super();
+    }
+
+    // --------------------------------------------- Локаторы ------------------------------------------------
+
+    // ---------------------------------------------- String -------------------------------------------------
+    // Ссылка на указанный тип сортировки (на странице доступно несколько видов сортировки товаров)
     private static final String TYPE_SORTING_LINK_XPATH = "//a[contains(., '%s')]/../../td";
+
+    // ------------------------------------------ SelenideElement ---------------------------------------------
     // Поле с количеством товара
     private static final SelenideElement amount_field = $("input[name^='quantity']");
+
+    // --------------------------------------------- Методы ------------------------------------------------
 
     /**
      * Проверяет наличие товара в указанном количестве
      *
      * @param amount - количество едениц товара
-     * todo подождать пока тест добавит товар в корзину
-     * todo разбить метод на части
+     *               todo разбить метод на части
      */
     public CartPage checkAvailabilityOfProductInAmount(int amount) {
-        String productName = config.getProductModel().getProductName();
-        String priceProduct = config.getProductModel().getPriceProduct().split(" руб.")[0];
+        String productName = config.accessProductModel().getName();
+        String priceProduct = config.accessProductModel().getPrice().split(" руб.")[0];
         String amountProduct = amount_field.getAttribute("value");
         int sum = Integer.parseInt(priceProduct) * amount;
         String priceProductInCart =
