@@ -1,6 +1,5 @@
 package ru.my_shop.autotest.steps;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.ru.И;
 import cucumber.api.java.ru.Когда;
 import cucumber.api.java.ru.То;
@@ -10,18 +9,15 @@ import ru.my_shop.autotest.models.ProductModel;
 import ru.my_shop.autotest.pages.*;
 
 /**
- * Класс описывающий общие шаги тестов
+ * Класс описывающий общие шаги Интернет-магазина my-shop.ru
  */
-public class CommonSteps extends AbstractSteps{
+public class BaseSteps extends AbstractSteps {
 
     private CommonPage commonPage = new CommonPage();
     private CardProductPage cardProductPage = new CardProductPage();
     private CatalogPage catalogPage = new CatalogPage();
-    // todo открытие товара должно быть в HomePAge
     private HomePage homePage = new HomePage();
     private CartPage cartPage = new CartPage();
-    private ConfigContainer config = ConfigContainer.getInstance();
-
 
     @Когда("^выполняет поиск товара \"([^\"]*)\"$")
     public void searchProduct(String productName) {
@@ -46,9 +42,8 @@ public class CommonSteps extends AbstractSteps{
 
     @И("^откывает карточку товара по имени товара$")
     public void openCardProductByName() {
-        catalogPage.openCardProductByName();
+        commonPage.openCardProductByName();
         cardProductPage.checksThatProductCardContainsCorrectInfo();
-
     }
 
     @Когда("^выводит информацию о товаре$")
@@ -87,18 +82,17 @@ public class CommonSteps extends AbstractSteps{
     }
 
     @И("^добавляет товар в корзину из каточки товара$")
-    public void addProductToCartFromProductCard () throws InterruptedException {
+    public void addProductToCartFromProductCard() throws InterruptedException {
         cardProductPage.addProductToCartFromProductCard();
     }
 
     @И("^переходит в корзину$")
-    public void goToCard( ) {
+    public void goToCard() {
         commonPage.goToCard();
     }
 
-
     @И("^выводит информацию о найденных товарах$")
-    public void printInfoAboutProductsFound () {
+    public void printInfoAboutProductsFound() {
         catalogPage.printInfoAboutProductsFound();
     }
 
@@ -112,11 +106,6 @@ public class CommonSteps extends AbstractSteps{
         cardProductPage.getAndSaveProductInfoOnCardProduct();
     }
 
-    @И("^откывает карточку товара$")
-    public void openCardProduct()  {
-        catalogPage.openCardProduct();
-    }
-
     @И("^проверяет наличие и количество товара (\\d+) шт в корзине$")
     public void checkAvailabilityOfProductInCardInAmount(int amount) {
         cartPage.checkAvailabilityOfProductInAmount(amount);
@@ -124,8 +113,12 @@ public class CommonSteps extends AbstractSteps{
 
     @И("^получает и сохраняет информацию о товаре на странице каталога$")
     public void getAndSaveProductInfoOnCatalogPage() {
-        // todo указывать номер товара в списке
-        ProductModel product = config.getProductModel();
+        ProductModel product = config.accessProductModel();
         catalogPage.getInfoAboutProduct(0, product);
+    }
+
+    @И("^откывает карточку товара по №(\\d+) в списке$")
+    public void openCardProductByNumber(int number) {
+        catalogPage.openCardProduct(number);
     }
 }

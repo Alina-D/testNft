@@ -2,7 +2,7 @@ package ru.my_shop.autotest.steps;
 
 /**
  * Класс описывающий шаги пользователя: Частное лицо
+ * (класс сделан для наглядности, может быть использован при расширении проекта)
  */
-// todo класс сделан для наглядности
-public class PrivatePersonSteps extends AbstractSteps{
+public class PrivatePersonSteps extends AbstractSteps {
 }
