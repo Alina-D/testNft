@@ -26,12 +26,14 @@ public class HomePage extends CommonPage {
     // todo проверить названия методов
     /**
      * Получает и сохраняет информацию о товаре на главной странице
+     *
+     * @return this - ссылка на текущий объект
      */
     public HomePage getAndSaveProductInfoOnHomePage() {
         // получает информацию о товаре
-        String productName = PRODUCT_INFO_ON_HOME_PAGE_LIST.get(0).getText();
-        String manufacturerProducts = PRODUCT_INFO_ON_HOME_PAGE_LIST.get(1).getText();
-        String priceProducts = PRODUCT_INFO_ON_HOME_PAGE_LIST.get(2).getText();
+        String productName = getElementText(PRODUCT_INFO_ON_HOME_PAGE_LIST.get(0));
+        String manufacturerProducts = getElementText(PRODUCT_INFO_ON_HOME_PAGE_LIST.get(1));
+        String priceProducts = getElementText(PRODUCT_INFO_ON_HOME_PAGE_LIST.get(2));
 
         // сохраняет информацию о товаре
         ProductModel product = config.accessProductModel();

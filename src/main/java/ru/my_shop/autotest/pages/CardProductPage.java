@@ -53,6 +53,7 @@ public class CardProductPage extends CommonPage {
      * Установить количество товара в блок "Купить"
      *
      * @param amountProduct - количество товара
+     * @return this - ссылка на текущий объект
      */
     public CardProductPage setAmountOfProductInBuyBlock(int amountProduct) {
         clearField(AMOUNT_OF_PRODUCT_IN_BUY_BLOCK_FIELD);
@@ -63,9 +64,11 @@ public class CardProductPage extends CommonPage {
 
     /**
      * Добавить товар в корзину из каточки товара
+     *
+     * @return this - ссылка на текущий объект
      */
     public CardProductPage addProductToCartFromProductCard() throws InterruptedException {
-        for (int countTries = 0; CART_ICON.getText().contains("0"); countTries++) {
+        for (int countTries = 0; getElementText(CART_ICON).contains("0"); countTries++) {
             clickElement(format(BUTTON_IN_BUY_BLOCK, "Купить"));
             Thread.sleep(500);
             assertNotEquals("Не удалось добавить товар в корзину", countTries, 20);
@@ -76,25 +79,28 @@ public class CardProductPage extends CommonPage {
 
     /**
      * Проверяет, что карточка товара содержит верную информацию
+     *
+     * @return this - ссылка на текущий объект
      * // todo добавить анотацию return, перепроверить. что все верно
      */
     public CardProductPage checksThatProductCardContainsCorrectInfo() {
+        String nameProduct = getElementText(NAME_PRODUCT_TITLE);
         assertFalse("Наименование товара на карточке товара указано не верно",
-                NAME_PRODUCT_TITLE.getText().contains(config.accessProductModel().getName()));
-        logger.info("Карточка товара содержит верное наименование '{}'", NAME_PRODUCT_TITLE.getText());
+                nameProduct.contains(config.accessProductModel().getName()));
+        logger.info("Карточка товара содержит верное наименование '{}'", nameProduct);
         return this;
     }
 
-    // todo спользовать методы из AbstractPage везде
-
     /**
      * Получает и сохраняет информацию о товаре на карточке товара
+     *
+     * @return this - ссылка на текущий объект
      * todo нужно, что бы получило и наличие и дату доставки, и разделить бы это все на методы
      */
     public CardProductPage getAndSaveProductInfoOnCardProduct() {
         ProductModel product = config.accessProductModel();
         HashMap<String, String> detailInfoProduct = product.getDetailInfo();
-        detailInfoProduct.put("Подробное описание", DETAILED_DESCRIPTION_PRODUCT_STRING.getText());
+        detailInfoProduct.put("Подробное описание", getElementText(DETAILED_DESCRIPTION_PRODUCT_STRING));
         setBasicProductInfo(detailInfoProduct);
         setProductFeatures(detailInfoProduct);
         logger.info(product.getDetailInfo().toString());
@@ -103,23 +109,29 @@ public class CardProductPage extends CommonPage {
 
     /**
      * Устанавливает характеристики товара
+     *
+     * @param detailInfoProduct - HashMap для записи детальной информация товара
+     * @return this - ссылка на текущий объект
      */
     private CardProductPage setProductFeatures(HashMap<String, String> detailInfoProduct) {
         for (int index = 0; index < NAME_PRODUCT_FEATURES_LIST.size(); index++) {
-            detailInfoProduct.put(NAME_PRODUCT_FEATURES_LIST.get(index).getText(), VALUE_PRODUCT_FEATURES_LIST.get(index).getText());
+            detailInfoProduct.put(getElementText(NAME_PRODUCT_FEATURES_LIST.get(index)),
+                    getElementText(VALUE_PRODUCT_FEATURES_LIST.get(index)));
         }
         return this;
     }
 
     /**
      * Устанавливает базовую информацию товара
+     *
+     * @param detailInfoProduct - HashMap для записи детальной информация товара
+     * @return this - ссылка на текущий объект
      */
     private CardProductPage setBasicProductInfo(HashMap<String, String> detailInfoProduct) {
         for (SelenideElement productInfo : BASIC_PRODUCT_INFO_LIST) {
-            String[] productInfoList = productInfo.getText().split(": ");
+            String[] productInfoList = getElementText(productInfo).split(": ");
             detailInfoProduct.put(productInfoList[0], productInfoList[1]);
         }
         return this;
     }
-
 }

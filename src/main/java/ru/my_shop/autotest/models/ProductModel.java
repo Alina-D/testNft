@@ -18,13 +18,17 @@ public class ProductModel {
 
     /**
      * Получить имя товара
+     *
+     * @return имя товара
      */
     public String getName() {
         return name;
     }
 
     /**
-     * Получить сумму товара
+     * Получить цену товара
+     *
+     * @return цену товара
      */
     public String getPrice() {
         return price;
@@ -32,6 +36,8 @@ public class ProductModel {
 
     /**
      * Получить краткое описание товара
+     *
+     * @return краткое описание товара
      */
     public String getShotDescription() {
         return shotDescription;
@@ -39,6 +45,8 @@ public class ProductModel {
 
     /**
      * Получить информацию о наличии товара
+     *
+     * @return информацию о наличии товара
      */
     public String getAvailabilityInfo() {
         return availabilityInfo;
@@ -46,6 +54,8 @@ public class ProductModel {
 
     /**
      * Получить дату доставки
+     *
+     * @return дату доставки товара
      */
     public String getDeliveryDate() {
         return deliveryDate;
@@ -53,6 +63,8 @@ public class ProductModel {
 
     /**
      * Получить детальное описание товара
+     *
+     * @return детальную информацию товара
      */
     public HashMap<String, String> getDetailInfo() {
         return detailInfo;
@@ -60,6 +72,9 @@ public class ProductModel {
 
     /**
      * Установить имя товара
+     *
+     * @param name - имя товара
+     * @return this - ссылка на текущий объект
      */
     public ProductModel setName(String name) {
         this.name = name;
@@ -68,6 +83,9 @@ public class ProductModel {
 
     /**
      * Установить сумму товара
+     *
+     * @param price - цена товара
+     * @return this - ссылка на текущий объект
      */
     public ProductModel setPrice(String price) {
         this.price = price;
@@ -76,6 +94,9 @@ public class ProductModel {
 
     /**
      * Установить краткое описание товара
+     *
+     * @param shotDescription - краткое описание товара
+     * @return this - ссылка на текущий объект
      */
     public ProductModel setShotDescription(String shotDescription) {
         this.shotDescription = shotDescription;
@@ -84,6 +105,9 @@ public class ProductModel {
 
     /**
      * Установить информацию о наличии товара
+     *
+     * @param availabilityInfo - информация о наличии товара
+     * @return this - ссылка на текущий объект
      */
     public ProductModel setAvailabilityInfo(String availabilityInfo) {
         this.availabilityInfo = availabilityInfo;
@@ -92,6 +116,9 @@ public class ProductModel {
 
     /**
      * Установить дату доставки
+     *
+     * @param deliveryDate - дата доставки товара
+     * @return this - ссылка на текущий объект
      */
     public ProductModel setDeliveryDate(String deliveryDate) {
         this.deliveryDate = deliveryDate;

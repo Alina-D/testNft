@@ -34,6 +34,7 @@ public class CartPage extends CommonPage {
      * Проверяет наличие товара в указанном количестве
      *
      * @param amount - количество едениц товара
+     * @return this - ссылка на текущий объект
      *               todo разбить метод на части
      */
     public CartPage checkAvailabilityOfProductInAmount(int amount) {
@@ -42,8 +43,8 @@ public class CartPage extends CommonPage {
         String amountProduct = amount_field.getAttribute("value");
         int sum = Integer.parseInt(priceProduct) * amount;
         String priceProductInCart =
-                $$x(format(TYPE_SORTING_LINK_XPATH, productName)).get(3).getText().split(".00")[0];
-        String sumInCart = $$x(format(TYPE_SORTING_LINK_XPATH, productName)).get(5).getText()
+                getElementText($$x(format(TYPE_SORTING_LINK_XPATH, productName)).get(3)).split(".00")[0];
+        String sumInCart = getElementText($$x(format(TYPE_SORTING_LINK_XPATH, productName)).get(5))
                 .split(".00")[0].replace(" ", "");
 
         assertTrue("Нет товара в корзине",

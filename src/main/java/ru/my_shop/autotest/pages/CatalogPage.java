@@ -2,7 +2,6 @@ package ru.my_shop.autotest.pages;
 
 import com.codeborne.selenide.ElementsCollection;
 import org.junit.Assert;
-import ru.my_shop.autotest.helpers.ConfigContainer;
 import ru.my_shop.autotest.models.ProductModel;
 
 import java.util.ArrayList;
@@ -44,20 +43,22 @@ public class CatalogPage extends CommonPage {
     /**
      * Проверить результаты поиска
      *
-     * @param productName - надименование товара
+     * @param productName - наименование товара
+     * @return this - ссылка на текущий объект
      */
     public CatalogPage checkSearchResults(String productName) {
         NAME_PRODUCTS_LIST.forEach(product -> {
-            String nameProduct = product.getText().toLowerCase();
+            String nameProduct = getElementText(product).toLowerCase();
             assertTrue(format("Не корректное отображение результатьв поиска. Товар '%s'" +
                     "не содержит '%s'", nameProduct, productName), nameProduct.contains(productName));
         });
-        logger.info("Результы поиска успешно проверены.");
+        logger.info("Результы поиска успешно проверены");
         return this;
     }
 
     /**
      * Получить информацию о найденных товарах
+     * @return ArrayList с информацией о найденных товарах
      */
     public ArrayList<ProductModel> getInfoAboutProductsFound() {
         ArrayList<ProductModel> listProduct = new ArrayList<>();
@@ -74,22 +75,28 @@ public class CatalogPage extends CommonPage {
 
     /**
      * Получить информацию о товаре
+     *
+     * @param numberProduct - номер товара в списке
+     * @param product - объект товара
+     * @return this - ссылка на текущий объект
      */
-    public void getInfoAboutProduct(int index, ProductModel product) {
+    public CatalogPage getInfoAboutProduct(int numberProduct, ProductModel product) {
         // Получить имя товара
-        String productName = NAME_PRODUCTS_LIST.get(index).text();
+        String productName = getElementText(NAME_PRODUCTS_LIST.get(numberProduct));
         product.setName(productName);
 
         // Установить цену товара
-        String priceProducts = PRICE_PRODUCTS_LIST.get(index).text();
+        String priceProducts = getElementText(PRICE_PRODUCTS_LIST.get(numberProduct));
         product.setPrice(priceProducts);
 
         // Установить краткое описание товара
-        String shotDescriptionProducts = SHORT_DESCRIPTION_PRODUCTS_LIST.get(index).text();
+        String shotDescriptionProducts = getElementText(SHORT_DESCRIPTION_PRODUCTS_LIST.get(numberProduct));
         product.setShotDescription(shotDescriptionProducts);
 
+        //todo проверить
         // Установить информацию о наличии товара
-        String infoOnAvailabilityAndDelivery = INFO_AVAILABILITY_AND_DELIVERY_PRODUCTS_LIST.get(index).text();
+//        String infoOnAvailabilityAndDelivery = INFO_AVAILABILITY_AND_DELIVERY_PRODUCTS_LIST.get(index).text();
+        String infoOnAvailabilityAndDelivery = getElementText(INFO_AVAILABILITY_AND_DELIVERY_PRODUCTS_LIST.get(numberProduct));
         String productAvailabilityInfo = infoOnAvailabilityAndDelivery.substring(
                 infoOnAvailabilityAndDelivery.indexOf('\n') + 1, infoOnAvailabilityAndDelivery.indexOf(';'));
         product.setAvailabilityInfo(productAvailabilityInfo);
@@ -98,22 +105,27 @@ public class CatalogPage extends CommonPage {
         String deliveryDate = infoOnAvailabilityAndDelivery.substring(
                 infoOnAvailabilityAndDelivery.indexOf(':') + 2, infoOnAvailabilityAndDelivery.lastIndexOf('\n'));
         product.setDeliveryDate(deliveryDate);
+        return this;
     }
 
     /**
      * Сортировать товары
      *
      * @param typeSorting - тип сортирвки
+     * @return this - ссылка на текущий объект
      */
-    public void sortProduct(String typeSorting) {
+    public CatalogPage sortProduct(String typeSorting) {
         clickElement(format(LINK_WITH_NAME_XPATH, typeSorting));
         logger.info("Выполнена сортировка {}", typeSorting);
+        return this;
     }
 
     /**
      * Проверить, что товары отсортированы в алфавитном порядке
+     *
+     * @return this - ссылка на текущий объект
      */
-    public CommonPage checkSortingAlphabetically() {
+    public CatalogPage checkSortingAlphabetically() {
         ArrayList<ProductModel> listProduct = getInfoAboutProductsFound();
         ArrayList<String> listOfProductNames = new ArrayList<>();
         ArrayList<String> listOfProductNamesAlphabetically = new ArrayList<>();
@@ -130,6 +142,8 @@ public class CatalogPage extends CommonPage {
 
     /**
      * Печатает информацию о найденных товарах в консоль
+     *
+     * @return this - ссылка на текущий объект
      */
     public CatalogPage printInfoAboutProductsFound() {
         ArrayList<ProductModel> listProduct = getInfoAboutProductsFound();
@@ -142,6 +156,7 @@ public class CatalogPage extends CommonPage {
      * Открывает карточку товара по нумерации в списке
      *
      * @param number номер товара в списке
+     * @return this - ссылка на текущий объект
      */
     public CatalogPage openCardProduct(int number) {
         clickElement(NAME_PRODUCTS_LIST.get(number - 1));

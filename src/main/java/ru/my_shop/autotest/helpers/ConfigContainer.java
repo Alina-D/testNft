@@ -57,9 +57,10 @@ public class ConfigContainer {
 
     /**
      * Загрузка конфигурации
-     * todo перепроверить
+     *
+     * @throws IOException - исключение, если файл не найден
      */
     public void loadConfig() throws IOException {
-        properties.load(new FileReader(new File("src/test/resources/%s.properties")));
+        properties.load(new FileReader(new File("src/test/resources/config.properties")));
     }
 }

@@ -47,6 +47,7 @@ public class CommonPage extends AbstractPage {
      * Поиск товара по имени товара
      *
      * @param productName - наименование товара
+     * @return this - ссылка на текущий объект
      */
     public CommonPage searchProduct(String productName) {
         clearField(SEARCH_FIELD);
@@ -62,6 +63,7 @@ public class CommonPage extends AbstractPage {
      * Нажать на элемент меню
      *
      * @param menuElementName - наименование элемента меню
+     * @return this - ссылка на текущий объект
      */
     public CommonPage clickElementMenu(String menuElementName) {
         clickElement(format(MENU_ELEMENT_WITH_NAME_XPATH, menuElementName));
@@ -73,6 +75,7 @@ public class CommonPage extends AbstractPage {
      * Выбрать категорию
      *
      * @param categoryName - наименование категории
+     * @return this - ссылка на текущий объект
      */
     public CommonPage selectCategory(String categoryName) {
         clickElement(format(CATEGORY_WITH_NAME_LINK_XPATH, categoryName));
@@ -84,6 +87,7 @@ public class CommonPage extends AbstractPage {
      * Выбрать элемент каталога (подкатегория/раздел/подраздел)
      *
      * @param catalogElement - наименование элемента каталога
+     * @return this - ссылка на текущий объект
      */
     public CommonPage selectCatalogElement(String catalogElement) {
         clickElement(format(CATALOG_ELEMENT_WITH_NAME_LINK_XPATH, catalogElement));
@@ -93,6 +97,8 @@ public class CommonPage extends AbstractPage {
 
     /**
      * Нажать на ссылку [Корзина]
+     *
+     * @return this - ссылка на текущий объект
      */
     public CommonPage goToCard() {
         clickElement(CARD_LINK);
@@ -102,6 +108,8 @@ public class CommonPage extends AbstractPage {
 
     /**
      * Выводит информацию о товаре
+     *
+     * @return this - ссылка на текущий объект
      */
     public CommonPage printInfoProduct() {
         ProductModel product = config.accessProductModel();
@@ -111,6 +119,8 @@ public class CommonPage extends AbstractPage {
 
     /**
      * Открыть карточку товара по номеру
+     *
+     * @return this - ссылка на текущий объект
      */
     public CommonPage openCardProductByName() {
         String numberProduct = config.accessProductModel().getName();

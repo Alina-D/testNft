@@ -74,4 +74,15 @@ public abstract class AbstractPage {
     protected void setValueInField(SelenideElement locator, String value) {
         locator.waitUntil(visible, waitingTimeMs, intervalMs).sendKeys(value);
     }
+
+    /**
+     * Получить текст элемента
+     *
+     * @param locator - локатор элемента
+     * @return текст элемента (String)
+     */
+    protected String getElementText(SelenideElement locator) {
+        return locator.waitUntil(visible, waitingTimeMs, intervalMs).getText();
+    }
+
 }
