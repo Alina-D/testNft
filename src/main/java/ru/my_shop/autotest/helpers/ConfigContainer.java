@@ -5,10 +5,7 @@ import org.slf4j.LoggerFactory;
 import ru.my_shop.autotest.models.ProductModel;
 import ru.my_shop.autotest.pages.AbstractPage;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.Properties;
 
 /**
@@ -18,6 +15,8 @@ public class ConfigContainer {
 
     // Статический экземпляр этого класса (собственно сам ConfigContainer)
     private static ConfigContainer instance;
+    private static final String pathPropertiesFile = "src/test/resources/config.properties";
+
 
     /**
      * Методы доступа к экземпляру этого класса
@@ -56,11 +55,28 @@ public class ConfigContainer {
     }
 
     /**
-     * Загрузка конфигурации
-     *
-     * @throws IOException - исключение, если файл не найден
+     * Загружает конфигурацию
+     * //todo использовать try-with-resources
      */
-    public void loadConfig() throws IOException {
-        properties.load(new FileReader(new File("src/test/resources/config.properties")));
+    public void loadConfig()  {
+        InputStream input = null;
+        try {
+            input = new FileInputStream(pathPropertiesFile);
+
+            // считывает список свойств конфигурационного файла (пары ключей и значений)
+            properties.load(input);
+        } catch (IOException io) {
+            io.printStackTrace();
+        } finally {
+            if (input != null) {
+                try {
+
+                    // закрывает поток
+                    input.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }
