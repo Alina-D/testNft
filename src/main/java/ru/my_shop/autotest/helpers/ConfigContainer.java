@@ -5,7 +5,8 @@ import org.slf4j.LoggerFactory;
 import ru.my_shop.autotest.models.ProductModel;
 import ru.my_shop.autotest.pages.AbstractPage;
 
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Properties;
 
 /**
@@ -15,7 +16,7 @@ public class ConfigContainer {
 
     // Статический экземпляр этого класса (собственно сам ConfigContainer)
     private static ConfigContainer instance;
-    private static final String pathPropertiesFile = "src/test/resources/config.properties";
+    private static final String PATH_PROPERTIES_FILE = "src/test/resources/config.properties";
 
 
     /**
@@ -50,33 +51,23 @@ public class ConfigContainer {
     /**
      * Получить объект товара
      */
-    public ProductModel accessProductModel() {
+    public ProductModel getProductModel() {
         return productModel;
     }
 
     /**
      * Загружает конфигурацию
-     * //todo использовать try-with-resources
      */
-    public void loadConfig()  {
-        InputStream input = null;
-        try {
-            input = new FileInputStream(pathPropertiesFile);
+    public void loadConfig() {
+
+        // При выходе из блока try файл, связанный с локальной переменной input, автоматически закрывается
+        // с помощью неявно вызываемого метода close().
+        try (FileInputStream input = new FileInputStream(PATH_PROPERTIES_FILE)) {
 
             // считывает список свойств конфигурационного файла (пары ключей и значений)
             properties.load(input);
         } catch (IOException io) {
             io.printStackTrace();
-        } finally {
-            if (input != null) {
-                try {
-
-                    // закрывает поток
-                    input.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
         }
     }
 }
