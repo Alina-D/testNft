@@ -4,8 +4,6 @@ import cucumber.api.java.ru.И;
 import cucumber.api.java.ru.Когда;
 import cucumber.api.java.ru.То;
 import cucumber.api.java.ru.Тогда;
-import ru.my_shop.autotest.helpers.ConfigContainer;
-import ru.my_shop.autotest.models.ProductModel;
 import ru.my_shop.autotest.pages.*;
 
 /**
@@ -98,12 +96,12 @@ public class BaseSteps extends AbstractSteps {
 
     @Когда("^получает и сохраняет информацию о товаре на главной странице$")
     public void getAndSaveProductInfoOnHomePage() {
-        homePage.getAndSaveProductInfoOnHomePage();
+        homePage.setProductInfo(0);
     }
 
     @И("^получает и сохраняет информацию о товаре на карточке товара$")
     public void getAndSaveProductInfoOnCardProduct() {
-        cardProductPage.getAndSaveProductInfoOnCardProduct();
+        cardProductPage.setProductInfo(0);
     }
 
     @И("^проверяет наличие и количество товара (\\d+) шт в корзине$")
@@ -113,8 +111,7 @@ public class BaseSteps extends AbstractSteps {
 
     @И("^получает и сохраняет информацию о товаре на странице каталога$")
     public void getAndSaveProductInfoOnCatalogPage() {
-        ProductModel product = config.accessProductModel();
-        catalogPage.getInfoAboutProduct(0, product);
+        catalogPage.setProductInfo(0);
     }
 
     @И("^откывает карточку товара по №(\\d+) в списке$")

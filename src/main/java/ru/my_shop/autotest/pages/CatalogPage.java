@@ -2,6 +2,7 @@ package ru.my_shop.autotest.pages;
 
 import com.codeborne.selenide.ElementsCollection;
 import org.junit.Assert;
+import ru.my_shop.autotest.interfaces.GettingProductInfo;
 import ru.my_shop.autotest.models.ProductModel;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Класс описывающий страницу "Каталог"
  */
-public class CatalogPage extends CommonPage {
+public class CatalogPage extends CommonPage implements GettingProductInfo {
 
     // ------------------------------------------- Конструктор ----------------------------------------------
     public CatalogPage() {
@@ -58,54 +59,18 @@ public class CatalogPage extends CommonPage {
 
     /**
      * Получить информацию о найденных товарах
+     *
      * @return ArrayList с информацией о найденных товарах
      */
     public ArrayList<ProductModel> getInfoAboutProductsFound() {
         ArrayList<ProductModel> listProduct = new ArrayList<>();
         for (int index = 0; index < NAME_PRODUCTS_LIST.size(); index++) {
-
             ProductModel product = new ProductModel();
-            getInfoAboutProduct(index, product);
-
+            setProductInfo(index);
             listProduct.add(product);
         }
         logger.info("Информация о найденных товарах успешно получена");
         return listProduct;
-    }
-
-    /**
-     * Получить информацию о товаре
-     *
-     * @param numberProduct - номер товара в списке
-     * @param product - объект товара
-     * @return this - ссылка на текущий объект
-     */
-    public CatalogPage getInfoAboutProduct(int numberProduct, ProductModel product) {
-        // Получить имя товара
-        String productName = getElementText(NAME_PRODUCTS_LIST.get(numberProduct));
-        product.setName(productName);
-
-        // Установить цену товара
-        String priceProducts = getElementText(PRICE_PRODUCTS_LIST.get(numberProduct));
-        product.setPrice(priceProducts);
-
-        // Установить краткое описание товара
-        String shotDescriptionProducts = getElementText(SHORT_DESCRIPTION_PRODUCTS_LIST.get(numberProduct));
-        product.setShotDescription(shotDescriptionProducts);
-
-        //todo проверить
-        // Установить информацию о наличии товара
-//        String infoOnAvailabilityAndDelivery = INFO_AVAILABILITY_AND_DELIVERY_PRODUCTS_LIST.get(index).text();
-        String infoOnAvailabilityAndDelivery = getElementText(INFO_AVAILABILITY_AND_DELIVERY_PRODUCTS_LIST.get(numberProduct));
-        String productAvailabilityInfo = infoOnAvailabilityAndDelivery.substring(
-                infoOnAvailabilityAndDelivery.indexOf('\n') + 1, infoOnAvailabilityAndDelivery.indexOf(';'));
-        product.setAvailabilityInfo(productAvailabilityInfo);
-
-        // Установить дату доставки товара
-        String deliveryDate = infoOnAvailabilityAndDelivery.substring(
-                infoOnAvailabilityAndDelivery.indexOf(':') + 2, infoOnAvailabilityAndDelivery.lastIndexOf('\n'));
-        product.setDeliveryDate(deliveryDate);
-        return this;
     }
 
     /**
@@ -164,7 +129,106 @@ public class CatalogPage extends CommonPage {
         return this;
     }
 
+    /**
+     * Установить информацию о товаре
+     * // todo переименовать шаги сценария в соответствии этого метода
+     * @param numberProduct - номер товара в списке каталога
+     * @return this - ссылка на текущий объект
+     */
+    @Override
+    public GettingProductInfo setProductInfo(int numberProduct) {
+        setParameterName(numberProduct);
+        setParameterPrice(numberProduct);
+        setParameterShotDescription(numberProduct);
+        setParameterAvailabilityInfo(numberProduct);
+        setParameterDeliveryDate(numberProduct);
 
+        //todo удалить вывод текста
+        ProductModel product = config.getProductModel();
+        logger.info(product.toString());
+        return this;
+    }
+
+    /**
+     * Установить параметр 'Наименование' товара
+     *
+     * @param numberProduct - номер товара в списке каталога
+     * @return this - ссылка на текущий объект
+     */
+    @Override
+    public GettingProductInfo setParameterName(int numberProduct) {
+        ProductModel product = config.getProductModel();
+        String productName = getElementText(NAME_PRODUCTS_LIST.get(numberProduct));
+        product.setName(productName);
+        logger.info("Установлен параметр 'Наименование' товара - '{}'", productName);
+        return this;
+    }
+
+    /**
+     * Установить параметр 'Цена' товара
+     *
+     * @param numberProduct - номер товара в списке каталога
+     * @return this - ссылка на текущий объект
+     */
+    @Override
+    public GettingProductInfo setParameterPrice(int numberProduct) {
+        ProductModel product = config.getProductModel();
+        String priceProducts = getElementText(PRICE_PRODUCTS_LIST.get(numberProduct));
+        product.setPrice(priceProducts);
+        logger.info("Установлен параметр 'Цена' товара - '{}'", priceProducts);
+        return this;
+    }
+
+    /**
+     * Установить параметр 'Наличие' товара
+     *
+     * @param numberProduct - номер товара в списке каталога
+     * @return this - ссылка на текущий объект
+     * todo переименовать метод вместо Info - продукт
+     */
+    public CatalogPage setParameterAvailabilityInfo(int numberProduct) {
+        ProductModel product = config.getProductModel();
+             // todo переименовать Availability And Delivery info переменную и локатор
+        String infoOnAvailabilityAndDelivery =
+                getElementText(INFO_AVAILABILITY_AND_DELIVERY_PRODUCTS_LIST.get(numberProduct));
+        String productAvailabilityInfo = infoOnAvailabilityAndDelivery.substring(
+                infoOnAvailabilityAndDelivery.indexOf('\n') + 1, infoOnAvailabilityAndDelivery.indexOf(';'));
+        product.setAvailabilityInfo(productAvailabilityInfo);
+        logger.info("Установлен параметр 'Наличие' товара - '{}'", productAvailabilityInfo);
+        return this;
+    }
+
+    /**
+     * Установить параметр 'Дата доставки' товара
+     *
+     * @param numberProduct - номер товара в списке каталога
+     * @return this - ссылка на текущий объект
+     */
+    public CatalogPage setParameterDeliveryDate(int numberProduct) {
+        ProductModel product = config.getProductModel();
+        // todo переименовать Availability And Delivery info переменную и локатор
+        String infoOnAvailabilityAndDelivery =
+                getElementText(INFO_AVAILABILITY_AND_DELIVERY_PRODUCTS_LIST.get(numberProduct));
+        String deliveryDate = infoOnAvailabilityAndDelivery.substring(
+                infoOnAvailabilityAndDelivery.indexOf(';') + 2, infoOnAvailabilityAndDelivery.lastIndexOf('\n'));
+        product.setDeliveryDate(deliveryDate);
+        logger.info("Установлен параметр 'Дата доставки' товара - '{}'", deliveryDate);
+        return this;
+    }
+
+    /**
+     * Установить параметр 'Краткое описание' товара
+     *
+     * @param numberProduct - номер товара в списке каталога
+     * @return this - ссылка на текущий объект
+     */
+    public CatalogPage setParameterShotDescription(int numberProduct) {
+        ProductModel product = config.getProductModel();
+        String shotDescriptionProducts = getElementText(SHORT_DESCRIPTION_PRODUCTS_LIST.get(numberProduct));
+        product.setShotDescription(shotDescriptionProducts);
+        logger.info("Установлен параметр 'Краткое описание' товара - '{}'", shotDescriptionProducts);
+        return this;
+    }
 }
 
 

@@ -1,6 +1,7 @@
 package ru.my_shop.autotest.pages;
 
 import com.codeborne.selenide.ElementsCollection;
+import ru.my_shop.autotest.interfaces.GettingProductInfo;
 import ru.my_shop.autotest.models.ProductModel;
 
 import static com.codeborne.selenide.Selenide.$$;
@@ -8,10 +9,10 @@ import static com.codeborne.selenide.Selenide.$$;
 /**
  * Класс описывающий страницу "Главная страница"
  */
-public class HomePage extends CommonPage {
+public class HomePage extends CommonPage implements GettingProductInfo {
 
     // ------------------------------------------- Конструктор -----------------------------------------------
-    public HomePage () {
+    public HomePage() {
         super();
     }
 
@@ -24,24 +25,51 @@ public class HomePage extends CommonPage {
     // --------------------------------------------- Методы ------------------------------------------------
 
     // todo проверить названия методов
+
     /**
-     * Получает и сохраняет информацию о товаре на главной странице
+     * Установить информацию о товаре
      *
+     * @param numberProduct - номер товара в списке каталога
      * @return this - ссылка на текущий объект
      */
-    public HomePage getAndSaveProductInfoOnHomePage() {
-        // получает информацию о товаре
-        String productName = getElementText(PRODUCT_INFO_ON_HOME_PAGE_LIST.get(0));
-        String manufacturerProducts = getElementText(PRODUCT_INFO_ON_HOME_PAGE_LIST.get(1));
-        String priceProducts = getElementText(PRODUCT_INFO_ON_HOME_PAGE_LIST.get(2));
+    @Override
+    public HomePage setProductInfo(int numberProduct) {
+        setParameterName(numberProduct);
+        setParameterPrice(numberProduct);
 
-        // сохраняет информацию о товаре
-        ProductModel product = config.accessProductModel();
+        //todo удалить вывод текста
+        ProductModel product = config.getProductModel();
         logger.info(product.toString());
+        return this;
+    }
+
+    /**
+     * Установить параметр 'Наименование' товара
+     *
+     * @param numberProduct - номер товара в списке каталога
+     * @return this - ссылка на текущий объект
+     */
+    @Override
+    public GettingProductInfo setParameterName(int numberProduct) {
+        ProductModel product = config.getProductModel();
+        String productName = getElementText(PRODUCT_INFO_ON_HOME_PAGE_LIST.get(0));
         product.setName(productName);
+        logger.info("Установлен параметр 'Наименование' товара - '{}'", productName);
+        return this;
+    }
+
+    /**
+     * Установить параметр 'Цена' товара
+     *
+     * @param numberProduct - номер товара в списке каталога
+     * @return this - ссылка на текущий объект
+     */
+    @Override
+    public GettingProductInfo setParameterPrice(int numberProduct) {
+        ProductModel product = config.getProductModel();
+        String priceProducts = getElementText(PRODUCT_INFO_ON_HOME_PAGE_LIST.get(2));
         product.setPrice(priceProducts);
-        product.getDetailInfo().put("Производитель", manufacturerProducts);
-        logger.info(product.toString());
+        logger.info("Установлен параметр 'Цена' товара - '{}'", priceProducts);
         return this;
     }
 }
