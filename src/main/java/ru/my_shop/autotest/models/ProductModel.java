@@ -12,6 +12,7 @@ public class ProductModel {
     private String name;
     private String price;
     private String shotDescription;
+    private String detailedDescription;
     private String availabilityInfo;
     private String deliveryDate;
     private HashMap<String, String> detailInfo = new HashMap<>();
@@ -41,6 +42,15 @@ public class ProductModel {
      */
     public String getShotDescription() {
         return shotDescription;
+    }
+
+    /**
+     * Получить подробное описание товара
+     *
+     * @return подробное описание товара
+     */
+    public String getDetailedDescription() {
+        return detailedDescription;
     }
 
     /**
@@ -104,6 +114,17 @@ public class ProductModel {
     }
 
     /**
+     * Установить подробное описание товара
+     *
+     * @param detailedDescription - подробное описание товара
+     * @return this - ссылка на текущий объект
+     */
+    public ProductModel setDetailedDescription(String detailedDescription) {
+        this.detailedDescription = detailedDescription;
+        return this;
+    }
+
+    /**
      * Установить информацию о наличии товара
      *
      * @param availabilityInfo - информация о наличии товара
@@ -137,10 +158,11 @@ public class ProductModel {
                         "наименование = '%s', \n" +
                         "цена = '%s', \n" +
                         "краткое описание = '%s', \n" +
+                        "подробное описание = '%s', \n" +
                         "наличие = '%s', \n" +
                         "дата доставки = '%s', \n" +
                         "детальное описание = %s",
-                name, price, shotDescription, availabilityInfo, deliveryDate, detailInfo);
+                name, price, shotDescription, detailedDescription, availabilityInfo, deliveryDate, detailInfo);
     }
 
 }
