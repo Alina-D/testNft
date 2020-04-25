@@ -5,8 +5,7 @@ import ru.my_shop.autotest.models.ProductModel;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
-import static java.lang.String.*;
-import static org.junit.Assert.assertEquals;
+import static java.lang.String.format;
 
 /**
  * Класс описывающий общую логику для всех страниц
@@ -14,7 +13,7 @@ import static org.junit.Assert.assertEquals;
 public class CommonPage extends AbstractPage {
 
     // ------------------------------------------- Конструктор -----------------------------------------------
-    public CommonPage () {
+    public CommonPage() {
         super();
     }
 
@@ -27,8 +26,8 @@ public class CommonPage extends AbstractPage {
     private static final String CATEGORY_WITH_NAME_LINK_XPATH = "//a[contains(@id, 'top')]/div[contains(., '%s')]";
     // Ссылка на указанный элемент каталога (подкатегория/раздел/подраздел)
     private static final String CATALOG_ELEMENT_WITH_NAME_LINK_XPATH =
-            "//tbody//a[contains(@href, '/shop/catalogue') and contains(@title, '%s')] ";
-    // Ссылка с названием todo подумать над комментом
+            "//td[@data-o='breadcrumbs']//a[contains(@title, '%s')]";
+    // Ссылка с указанным именем (универсальный локар, позволяет найти ссылку по ее наименованию)
     protected static final String LINK_WITH_NAME_XPATH = "//a[contains(., '%s')]";
 
     // ------------------------------------------ SelenideElement ---------------------------------------------
@@ -112,7 +111,7 @@ public class CommonPage extends AbstractPage {
      * @return this - ссылка на текущий объект
      */
     public CommonPage printInfoProduct() {
-        ProductModel product = config.accessProductModel();
+        ProductModel product = config.getProductModel();
         logger.info(product.toString());
         return this;
     }
@@ -123,7 +122,7 @@ public class CommonPage extends AbstractPage {
      * @return this - ссылка на текущий объект
      */
     public CommonPage openCardProductByName() {
-        String numberProduct = config.accessProductModel().getName();
+        String numberProduct = config.getProductModel().getName();
         clickElement(format(LINK_WITH_NAME_XPATH, numberProduct));
         logger.info("Открыта карточка товар по имени: {}", numberProduct);
         return this;
