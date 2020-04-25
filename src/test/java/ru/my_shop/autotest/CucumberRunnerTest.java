@@ -12,7 +12,7 @@ import org.junit.runner.RunWith;
         features = {"src/test/resource/feature"},
 
         // путь к шагам
-        glue={"ru/my_shop/autotest/steps"},
+        glue = {"ru/my_shop/autotest/steps"},
 
         // делает вывод в консоле более читаемым
         monochrome = true,
