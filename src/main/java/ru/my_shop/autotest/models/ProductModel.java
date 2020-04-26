@@ -15,8 +15,8 @@ public class ProductModel {
     private String detailedDescription;
     private String availabilityInfo;
     private String deliveryDate;
-    private HashMap<String, String> feature;
-    private HashMap<String, String> basicInfo;
+    private HashMap<String, String> feature = new HashMap<>();
+    private HashMap<String, String> basicInfo = new HashMap<>();
 
     /**
      * Получить имя товара
@@ -187,13 +187,13 @@ public class ProductModel {
     @Override
     public String toString() {
         return format("Информация о товаре:  \n" +
-                        "Наименование = '%s', \n" +
-                        "Цена = '%s', \n" +
-                        "Краткое описание = '%s', \n" +
-                        "Подробное описание = '%s', \n" +
-                        "Наличие = '%s', \n" +
-                        "Дата доставки = '%s', \n" +
-                        "Базовая информация = %s",
+                        "Наименование = %s, \n" +
+                        "Цена = %s, \n" +
+                        "Краткое описание = %s, \n" +
+                        "Подробное описание = %s, \n" +
+                        "Наличие = %s, \n" +
+                        "Дата доставки = %s, \n" +
+                        "Базовая информация = %s, \n" +
                         "Характеристики = %s",
                 name, price, shotDescription, detailedDescription, availabilityInfo, deliveryDate, basicInfo, feature);
     }
