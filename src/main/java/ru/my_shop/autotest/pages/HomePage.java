@@ -30,16 +30,13 @@ public class HomePage extends CommonPage implements GettingProductInfo {
      * Установить информацию о товаре
      *
      * @param numberProduct - номер товара в списке каталога
+     * @param product - объект описывающий товар
      * @return this - ссылка на текущий объект
      */
     @Override
-    public HomePage setProductInfo(int numberProduct) {
-        setParameterName(numberProduct);
-        setParameterPrice(numberProduct);
-
-        //todo удалить вывод текста
-        ProductModel product = config.getProductModel();
-        logger.info(product.toString());
+    public HomePage setProductInfo(int numberProduct, ProductModel product) {
+        setParameterName(numberProduct, product);
+        setParameterPrice(numberProduct, product);
         return this;
     }
 
@@ -47,11 +44,11 @@ public class HomePage extends CommonPage implements GettingProductInfo {
      * Установить параметр 'Наименование' товара
      *
      * @param numberProduct - номер товара в списке каталога
+     * @param product - объект описывающий товар
      * @return this - ссылка на текущий объект
      */
     @Override
-    public GettingProductInfo setParameterName(int numberProduct) {
-        ProductModel product = config.getProductModel();
+    public GettingProductInfo setParameterName(int numberProduct, ProductModel product) {
         String productName = getElementText(PRODUCT_INFO_ON_HOME_PAGE_LIST.get(0));
         product.setName(productName);
         logger.info("Установлен параметр 'Наименование' товара - '{}'", productName);
@@ -62,11 +59,11 @@ public class HomePage extends CommonPage implements GettingProductInfo {
      * Установить параметр 'Цена' товара
      *
      * @param numberProduct - номер товара в списке каталога
+     * @param product - объект описывающий товар
      * @return this - ссылка на текущий объект
      */
     @Override
-    public GettingProductInfo setParameterPrice(int numberProduct) {
-        ProductModel product = config.getProductModel();
+    public GettingProductInfo setParameterPrice(int numberProduct, ProductModel product) {
         String priceProducts = getElementText(PRODUCT_INFO_ON_HOME_PAGE_LIST.get(2));
         product.setPrice(priceProducts);
         logger.info("Установлен параметр 'Цена' товара - '{}'", priceProducts);

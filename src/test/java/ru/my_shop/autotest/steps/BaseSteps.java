@@ -4,6 +4,7 @@ import cucumber.api.java.ru.И;
 import cucumber.api.java.ru.Когда;
 import cucumber.api.java.ru.То;
 import cucumber.api.java.ru.Тогда;
+import ru.my_shop.autotest.models.ProductModel;
 import ru.my_shop.autotest.pages.*;
 
 /**
@@ -41,7 +42,7 @@ public class BaseSteps extends AbstractSteps {
     @И("^откывает карточку товара по имени товара$")
     public void openCardProductByName() {
         commonPage.openCardProductByName();
-        cardProductPage.checksThatProductCardContainsCorrectInfo();
+        cardProductPage.checksThatProductCardContainsName();
     }
 
     @Когда("^выводит информацию о товаре$")
@@ -96,12 +97,14 @@ public class BaseSteps extends AbstractSteps {
 
     @Когда("^получает и сохраняет информацию о товаре на главной странице$")
     public void getAndSaveProductInfoOnHomePage() {
-        homePage.setProductInfo(0);
+        ProductModel product = config.getProductModel();
+        homePage.setProductInfo(0, product);
     }
 
     @И("^получает и сохраняет информацию о товаре на карточке товара$")
     public void getAndSaveProductInfoOnCardProduct() {
-        cardProductPage.setProductInfo(0);
+        ProductModel product = config.getProductModel();
+        cardProductPage.setProductInfo(0, product);
     }
 
     @И("^проверяет наличие и количество товара (\\d+) шт в корзине$")
@@ -111,7 +114,8 @@ public class BaseSteps extends AbstractSteps {
 
     @И("^получает и сохраняет информацию о товаре на странице каталога$")
     public void getAndSaveProductInfoOnCatalogPage() {
-        catalogPage.setProductInfo(0);
+        ProductModel product = config.getProductModel();
+        catalogPage.setProductInfo(0, product);
     }
 
     @И("^откывает карточку товара по №(\\d+) в списке$")

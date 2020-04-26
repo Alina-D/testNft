@@ -64,9 +64,9 @@ public class CatalogPage extends CommonPage implements GettingProductInfo {
      */
     private ArrayList<ProductModel> getInfoAboutProductsFound() {
         ArrayList<ProductModel> listProduct = new ArrayList<>();
-        for (int index = 0; index < NAME_PRODUCTS_LIST.size(); index++) {
+        for (int index = 0; index < NAME_PRODUCTS_LIST.size() ; index++) {
             ProductModel product = new ProductModel();
-            setProductInfo(index);
+            setProductInfo(index, product);
             listProduct.add(product);
         }
         logger.info("Информация о найденных товарах успешно получена");
@@ -131,21 +131,18 @@ public class CatalogPage extends CommonPage implements GettingProductInfo {
 
     /**
      * Установить информацию о товаре
-     * // todo переименовать шаги сценария в соответствии этого метода
+     *
      * @param numberProduct - номер товара в списке каталога
+     * @param product - объект описывающий товар
      * @return this - ссылка на текущий объект
      */
     @Override
-    public GettingProductInfo setProductInfo(int numberProduct) {
-        setParameterName(numberProduct);
-        setParameterPrice(numberProduct);
-        setParameterShotDescription(numberProduct);
-        setParameterAvailabilityProduct(numberProduct);
-        setParameterDeliveryDate(numberProduct);
-
-        //todo удалить вывод текста
-        ProductModel product = config.getProductModel();
-        logger.info(product.toString());
+    public GettingProductInfo setProductInfo(int numberProduct, ProductModel product) {
+        setParameterName(numberProduct, product);
+        setParameterPrice(numberProduct, product);
+        setParameterShotDescription(numberProduct, product);
+        setParameterAvailabilityProduct(numberProduct, product);
+        setParameterDeliveryDate(numberProduct, product);
         return this;
     }
 
@@ -153,11 +150,11 @@ public class CatalogPage extends CommonPage implements GettingProductInfo {
      * Установить параметр 'Наименование' товара
      *
      * @param numberProduct - номер товара в списке каталога
+     * @param product - объект описывающий товар
      * @return this - ссылка на текущий объект
      */
     @Override
-    public GettingProductInfo setParameterName(int numberProduct) {
-        ProductModel product = config.getProductModel();
+    public GettingProductInfo setParameterName(int numberProduct, ProductModel product) {
         String productName = getElementText(NAME_PRODUCTS_LIST.get(numberProduct));
         product.setName(productName);
         logger.info("Установлен параметр 'Наименование' товара - '{}'", productName);
@@ -168,11 +165,11 @@ public class CatalogPage extends CommonPage implements GettingProductInfo {
      * Установить параметр 'Цена' товара
      *
      * @param numberProduct - номер товара в списке каталога
+     * @param product - объект описывающий товар
      * @return this - ссылка на текущий объект
      */
     @Override
-    public GettingProductInfo setParameterPrice(int numberProduct) {
-        ProductModel product = config.getProductModel();
+    public GettingProductInfo setParameterPrice(int numberProduct, ProductModel product) {
         String priceProducts = getElementText(PRICE_PRODUCTS_LIST.get(numberProduct));
         product.setPrice(priceProducts);
         logger.info("Установлен параметр 'Цена' товара - '{}'", priceProducts);
@@ -183,10 +180,10 @@ public class CatalogPage extends CommonPage implements GettingProductInfo {
      * Установить параметр 'Наличие' товара
      *
      * @param numberProduct - номер товара в списке каталога
+     * @param product - объект описывающий товар
      * @return this - ссылка на текущий объект
      */
-    private CatalogPage setParameterAvailabilityProduct(int numberProduct) {
-        ProductModel product = config.getProductModel();
+    private CatalogPage setParameterAvailabilityProduct(int numberProduct, ProductModel product) {
         String availabilityAndDeliveryInfo =
                 getElementText(AVAILABILITY_AND_DELIVERY_PRODUCTS_INFO_LIST.get(numberProduct));
         String productAvailabilityInfo = availabilityAndDeliveryInfo.substring(
@@ -200,10 +197,10 @@ public class CatalogPage extends CommonPage implements GettingProductInfo {
      * Установить параметр 'Дата доставки' товара
      *
      * @param numberProduct - номер товара в списке каталога
+     * @param product - объект описывающий товар
      * @return this - ссылка на текущий объект
      */
-    private CatalogPage setParameterDeliveryDate(int numberProduct) {
-        ProductModel product = config.getProductModel();
+    private CatalogPage setParameterDeliveryDate(int numberProduct, ProductModel product) {
         String availabilityAndDeliveryInfo =
                 getElementText(AVAILABILITY_AND_DELIVERY_PRODUCTS_INFO_LIST.get(numberProduct));
         String deliveryDate = availabilityAndDeliveryInfo.substring(
@@ -217,10 +214,10 @@ public class CatalogPage extends CommonPage implements GettingProductInfo {
      * Установить параметр 'Краткое описание' товара
      *
      * @param numberProduct - номер товара в списке каталога
+     * @param product - объект описывающий товар
      * @return this - ссылка на текущий объект
      */
-    private CatalogPage setParameterShotDescription(int numberProduct) {
-        ProductModel product = config.getProductModel();
+    private CatalogPage setParameterShotDescription(int numberProduct, ProductModel product) {
         String shotDescriptionProducts = getElementText(SHORT_DESCRIPTION_PRODUCTS_LIST.get(numberProduct));
         product.setShotDescription(shotDescriptionProducts);
         logger.info("Установлен параметр 'Краткое описание' товара - '{}'", shotDescriptionProducts);

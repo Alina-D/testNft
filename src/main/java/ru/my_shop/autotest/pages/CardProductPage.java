@@ -28,10 +28,10 @@ public class CardProductPage extends CommonPage implements GettingProductInfo {
     // ---------------------------------------------- String -------------------------------------------------
     // Кнопка в блоке "Купить" (в блоке "Купить" может быть несколько кнопок)
     private static final String BUTTON_IN_BUY_BLOCK = "input[value='%s']";
-    // todo static это плохо
+    // todo справить регист пнаименования у переменной , которая не константа
     // ------------------------------------------ SelenideElement ---------------------------------------------
     // Поле "Количество товара" в блоке "Купить"
-    private SelenideElement AMOUNT_OF_PRODUCT_IN_BUY_BLOCK_FIELD = $("[name='quantity']");
+    private SelenideElement AMOUNT_PRODUCT_IN_BUY_BLOCK_FIELD = $("[name='quantity']");
     // Заголовок с именем товара
     private SelenideElement NAME_PRODUCT_TITLE = $("[itemprop='name']");
     // Подробное описание товара
@@ -40,8 +40,7 @@ public class CardProductPage extends CommonPage implements GettingProductInfo {
     private SelenideElement AVAILABILITY_AND_DELIVERY_PRODUCTS_INFO_STRING =
             $("[itemtype*='schema.org/Offer']");
     // Иформация о цене товара
-    private SelenideElement PRICE_PRODUCT_INFO = $("[itemtype='http://schema.org/Offer'] > b");
-
+    private SelenideElement PRICE_PRODUCT_INFO_STRING = $("[itemtype='http://schema.org/Offer'] > b");
 
     // ----------------------------------------- ElementsCollection --------------------------------------------
     // Список с наименованиями характеристик товара
@@ -63,8 +62,8 @@ public class CardProductPage extends CommonPage implements GettingProductInfo {
      * @return this - ссылка на текущий объект
      */
     public CardProductPage setAmountOfProductInBuyBlock(int amountProduct) {
-        clearField(AMOUNT_OF_PRODUCT_IN_BUY_BLOCK_FIELD);
-        setValueInField(AMOUNT_OF_PRODUCT_IN_BUY_BLOCK_FIELD, Integer.toString(amountProduct));
+        clearField(AMOUNT_PRODUCT_IN_BUY_BLOCK_FIELD);
+        setValueInField(AMOUNT_PRODUCT_IN_BUY_BLOCK_FIELD, Integer.toString(amountProduct));
         logger.info("Установлено количество товара в размере {} шт. в блоке 'Купить'", amountProduct);
         return this;
     }
@@ -85,12 +84,11 @@ public class CardProductPage extends CommonPage implements GettingProductInfo {
     }
 
     /**
-     * Проверить, что карточка товара содержит верную информацию
+     * Проверить, что карточка товара содержит верное наименование
      *
      * @return this - ссылка на текущий объект
-     * // todo перепроверить. что все верно
      */
-    public CardProductPage checksThatProductCardContainsCorrectInfo() {
+    public CardProductPage checksThatProductCardContainsName() {
         String nameProduct = getElementText(NAME_PRODUCT_TITLE);
         assertFalse("Наименование товара на карточке товара указано не корректно",
                 nameProduct.contains(config.getProductModel().getName()));
@@ -101,11 +99,11 @@ public class CardProductPage extends CommonPage implements GettingProductInfo {
     /**
      * Установить параметр характеристики товара
      *
+     * @param product - объект описывающий товар
      * @return this - ссылка на текущий объект
      */
-    private CardProductPage setParameterProductFeatures() {
+    private CardProductPage setParameterProductFeatures(ProductModel product) {
         logger.info("Установить параметр 'Характеристики' товара");
-        ProductModel product = config.getProductModel();
         HashMap<String, String> featureProduct = product.getFeature();
         for (int index = 0; index < NAME_PRODUCT_FEATURES_LIST.size(); index++) {
             String nameFeature = getElementText(NAME_PRODUCT_FEATURES_LIST.get(index));
@@ -119,14 +117,14 @@ public class CardProductPage extends CommonPage implements GettingProductInfo {
     /**
      * Установить основную информацию товара
      *
+     * @param product - объект описывающий товар
      * @return this - ссылка на текущий объект
      */
-    private CardProductPage setParameterBasicProductInfo() {
+    private CardProductPage setParameterBasicProductInfo(ProductModel product) {
         logger.info("Установить параметр 'Основная информация' товара");
-        ProductModel product = config.getProductModel();
         HashMap<String, String> basicInfoProduct = product.getBasicInfo();
-        for (SelenideElement basicProductInfo : BASIC_PRODUCT_INFO_LIST) {
-            String[] productInfoList = getElementText(basicProductInfo).split(": ");
+        for (SelenideElement basicInfo : BASIC_PRODUCT_INFO_LIST) {
+            String[] productInfoList = getElementText(basicInfo).split(": ");
             basicInfoProduct.put(productInfoList[0], productInfoList[1]);
             logger.info("Добавлен ключ: '{}' со значением: '{}'", productInfoList[0], productInfoList[1]);
         }
@@ -137,19 +135,16 @@ public class CardProductPage extends CommonPage implements GettingProductInfo {
      * Установить информацию о товаре
      *
      * @param numberProduct - номер товара в списке каталога
+     * @param product - объект описывающий товар
      * @return this - ссылка на текущий объект
      */
     @Override
-    public GettingProductInfo setProductInfo(int numberProduct) {
-        setParameterDetailedDescription();
-        setParameterAvailabilityInfo();
-        setParameterDeliveryDate();
-        setParameterBasicProductInfo();
-        setParameterProductFeatures();
-
-        //todo удалить вывод текста
-        ProductModel product = config.getProductModel();
-        logger.info(product.toString());
+    public GettingProductInfo setProductInfo(int numberProduct, ProductModel product) {
+        setParameterDetailedDescription(product);
+        setParameterAvailabilityInfo(product);
+        setParameterDeliveryDate(product);
+        setParameterBasicProductInfo(product);
+        setParameterProductFeatures(product);
         return this;
     }
 
@@ -157,11 +152,11 @@ public class CardProductPage extends CommonPage implements GettingProductInfo {
      * Установить параметр 'Наименование' товара
      *
      * @param numberProduct - номер товара в списке каталога
+     * @param product - объект описывающий товар
      * @return this - ссылка на текущий объект
      */
     @Override
-    public GettingProductInfo setParameterName(int numberProduct) {
-        ProductModel product = config.getProductModel();
+    public GettingProductInfo setParameterName(int numberProduct, ProductModel product) {
         String productName = getElementText(NAME_PRODUCT_TITLE);
         product.setDetailedDescription(productName);
         logger.info("Установлен параметр 'Наименование' товара - '{}'", productName);
@@ -172,12 +167,12 @@ public class CardProductPage extends CommonPage implements GettingProductInfo {
      * Установить параметр 'Цена' товара
      *
      * @param numberProduct - номер товара в списке каталога
+     * @param product - объект описывающий товар
      * @return this - ссылка на текущий объект
      */
     @Override
-    public GettingProductInfo setParameterPrice(int numberProduct) {
-        ProductModel product = config.getProductModel();
-        String priceProducts = getElementText(PRICE_PRODUCT_INFO);
+    public GettingProductInfo setParameterPrice(int numberProduct, ProductModel product) {
+        String priceProducts = getElementText(PRICE_PRODUCT_INFO_STRING);
         product.setDetailedDescription(priceProducts);
         logger.info("Установлен параметр 'Цена' товара - '{}'", priceProducts);
         return this;
@@ -186,10 +181,10 @@ public class CardProductPage extends CommonPage implements GettingProductInfo {
     /**
      * Установить параметр 'Наличие' товара
      *
+     * @param product - объект описывающий товар
      * @return this - ссылка на текущий объект
      */
-    private CardProductPage setParameterAvailabilityInfo() {
-        ProductModel product = config.getProductModel();
+    private CardProductPage setParameterAvailabilityInfo(ProductModel product) {
         String[] listInfoInBuyBlock = getElementText(AVAILABILITY_AND_DELIVERY_PRODUCTS_INFO_STRING).split("\n");
         product.setAvailabilityInfo(listInfoInBuyBlock[2]);
         logger.info("Установлен параметр 'Наличие' товара - '{}'", listInfoInBuyBlock[2]);
@@ -199,12 +194,12 @@ public class CardProductPage extends CommonPage implements GettingProductInfo {
     /**
      * Установить параметр 'Дата доставки' товара
      *
+     * @param product - объект описывающий товар
      * @return this - ссылка на текущий объект
      */
-    private CardProductPage setParameterDeliveryDate() {
-        ProductModel product = config.getProductModel();
+    private CardProductPage setParameterDeliveryDate(ProductModel product) {
         String[] listInfoInBuyBlock = getElementText(AVAILABILITY_AND_DELIVERY_PRODUCTS_INFO_STRING).split("\n");
-        product.setAvailabilityInfo(listInfoInBuyBlock[3]);
+        product.setDeliveryDate(listInfoInBuyBlock[3]);
         logger.info("Установлен параметр 'Дата доставки' товара - '{}'", listInfoInBuyBlock[3]);
         return this;
     }
@@ -212,11 +207,10 @@ public class CardProductPage extends CommonPage implements GettingProductInfo {
     /**
      * Установить параметр 'Подробное описание' товара
      *
+     * @param product - объект описывающий товар
      * @return this - ссылка на текущий объект
      */
-    private CardProductPage setParameterDetailedDescription() {
-        ProductModel product = config.getProductModel();
-        //todo в переменных добавлять String если это текст
+    private CardProductPage setParameterDetailedDescription(ProductModel product) {
         String detailInfo = getElementText(DETAILED_DESCRIPTION_PRODUCT_STRING);
         product.setDetailedDescription(getElementText(DETAILED_DESCRIPTION_PRODUCT_STRING));
         logger.info("Установлен параметр 'Подробное описание' товара - '{}'", detailInfo);

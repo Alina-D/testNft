@@ -5,7 +5,6 @@ import com.codeborne.selenide.SelenideElement;
 import static com.codeborne.selenide.Selenide.*;
 import static java.lang.String.format;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 
 /**
@@ -26,7 +25,7 @@ public class CartPage extends CommonPage {
 
     // ------------------------------------------ SelenideElement ---------------------------------------------
     // Поле с количеством товара
-    private SelenideElement amount_field = $("input[name^='quantity']");
+    private SelenideElement amountProductField = $("input[name^='quantity']");
 
     // --------------------------------------------- Методы ------------------------------------------------
 
@@ -100,7 +99,7 @@ public class CartPage extends CommonPage {
      * @return this - ссылка на текущий объект
      */
     private CartPage checkAmountProduct(int amountProduct) {
-        String amountProductInCart = amount_field.getAttribute("value");
+        String amountProductInCart = amountProductField.getAttribute("value");
         assertEquals("У товара установлено не корректное количество",
                 amountProductInCart, Integer.toString(amountProduct));
         logger.info("Товар содержит корректное количество {}", amountProduct);
