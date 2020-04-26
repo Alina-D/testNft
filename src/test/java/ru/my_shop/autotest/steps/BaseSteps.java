@@ -106,7 +106,7 @@ public class BaseSteps extends AbstractSteps {
 
     @И("^проверяет наличие и количество товара (\\d+) шт в корзине$")
     public void checkAvailabilityOfProductInCardInAmount(int amount) {
-        cartPage.checkAvailabilityOfProductInAmount(amount);
+        cartPage.checkAvailabilityOfProduct(amount);
     }
 
     @И("^получает и сохраняет информацию о товаре на странице каталога$")

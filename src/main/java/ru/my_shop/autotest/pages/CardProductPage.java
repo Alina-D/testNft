@@ -37,8 +37,7 @@ public class CardProductPage extends CommonPage implements GettingProductInfo {
     // Подробное описание товара
     private static final SelenideElement DETAILED_DESCRIPTION_PRODUCT_STRING = $("[itemprop='description']");
     // Информация о наличии и дате доставки товара
-    // todo переименовать, инф в конец
-    private static final SelenideElement INFO_AVAILABILITY_AND_DELIVERY_PRODUCTS =
+    private static final SelenideElement AVAILABILITY_AND_DELIVERY_PRODUCTS_INFO_STRING =
             $("[itemtype*='schema.org/Offer']");
     // нформация о цене товара
     private static final SelenideElement PRICE_PRODUCT_INFO = $("[itemtype='http://schema.org/Offer'] > b");
@@ -86,25 +85,25 @@ public class CardProductPage extends CommonPage implements GettingProductInfo {
     }
 
     /**
-     * Проверяет, что карточка товара содержит верную информацию
+     * Проверить, что карточка товара содержит верную информацию
      *
      * @return this - ссылка на текущий объект
      * // todo перепроверить. что все верно
      */
     public CardProductPage checksThatProductCardContainsCorrectInfo() {
         String nameProduct = getElementText(NAME_PRODUCT_TITLE);
-        assertFalse("Наименование товара на карточке товара указано не верно",
+        assertFalse("Наименование товара на карточке товара указано не корректно",
                 nameProduct.contains(config.getProductModel().getName()));
-        logger.info("Карточка товара содержит верное наименование '{}'", nameProduct);
+        logger.info("Карточка товара содержит корректное наименование '{}'", nameProduct);
         return this;
     }
 
     /**
-     * Устанавливает характеристики товара в параметр 'Детальная информация'
-     *  ещвщ разделить арактеристики и детальную инфку в моделе
+     * Установить характеристики товара в параметр 'Детальная информация'
+     *  todo разделить арактеристики и детальную инфку в моделе
      * @return this - ссылка на текущий объект
      */
-    private CardProductPage setProductFeatures() {
+    private CardProductPage setParameterProductFeatures() {
         logger.info("В параметр 'Детальная информация' добавляются характеристики товара");
         ProductModel product = config.getProductModel();
         HashMap<String, String> detailInfoProduct = product.getDetailInfo();
@@ -118,11 +117,11 @@ public class CardProductPage extends CommonPage implements GettingProductInfo {
     }
 
     /**
-     * Устанавливает базовую информацию товара в параметр 'Детальная информация'
+     * Установить базовую информацию товара в параметр 'Детальная информация'
      *
      * @return this - ссылка на текущий объект
      */
-    private CardProductPage setBasicProductInfo() {
+    private CardProductPage setParameterBasicProductInfo() {
         logger.info("В список 'Детальная информация' добавляется базовая информация товара");
         ProductModel product = config.getProductModel();
         HashMap<String, String> detailInfoProduct = product.getDetailInfo();
@@ -135,7 +134,7 @@ public class CardProductPage extends CommonPage implements GettingProductInfo {
     }
 
     /**
-     * Устанавливает информацию о товаре
+     * Установить информацию о товаре
      *
      * @param numberProduct - номер товара в списке каталога
      * @return this - ссылка на текущий объект
@@ -145,9 +144,8 @@ public class CardProductPage extends CommonPage implements GettingProductInfo {
         setParameterDetailedDescription();
         setParameterAvailabilityInfo();
         setParameterDeliveryDate();
-        // todo добавить в название переменно parameter
-        setBasicProductInfo();
-        setProductFeatures();
+        setParameterBasicProductInfo();
+        setParameterProductFeatures();
 
         //todo удалить вывод текста
         ProductModel product = config.getProductModel();
@@ -191,9 +189,9 @@ public class CardProductPage extends CommonPage implements GettingProductInfo {
      *
      * @return this - ссылка на текущий объект
      */
-    public CardProductPage setParameterAvailabilityInfo() {
+    private CardProductPage setParameterAvailabilityInfo() {
         ProductModel product = config.getProductModel();
-        String[] listInfoInBuyBlock = getElementText(INFO_AVAILABILITY_AND_DELIVERY_PRODUCTS).split("\n");
+        String[] listInfoInBuyBlock = getElementText(AVAILABILITY_AND_DELIVERY_PRODUCTS_INFO_STRING).split("\n");
         product.setAvailabilityInfo(listInfoInBuyBlock[2]);
         logger.info("Установлен параметр 'Наличие' товара - '{}'", listInfoInBuyBlock[2]);
         return this;
@@ -204,9 +202,9 @@ public class CardProductPage extends CommonPage implements GettingProductInfo {
      *
      * @return this - ссылка на текущий объект
      */
-    public CardProductPage setParameterDeliveryDate() {
+    private CardProductPage setParameterDeliveryDate() {
         ProductModel product = config.getProductModel();
-        String[] listInfoInBuyBlock = getElementText(INFO_AVAILABILITY_AND_DELIVERY_PRODUCTS).split("\n");
+        String[] listInfoInBuyBlock = getElementText(AVAILABILITY_AND_DELIVERY_PRODUCTS_INFO_STRING).split("\n");
         product.setAvailabilityInfo(listInfoInBuyBlock[3]);
         logger.info("Установлен параметр 'Дата доставки' товара - '{}'", listInfoInBuyBlock[3]);
         return this;
@@ -217,7 +215,7 @@ public class CardProductPage extends CommonPage implements GettingProductInfo {
      *
      * @return this - ссылка на текущий объект
      */
-    public CardProductPage setParameterDetailedDescription() {
+    private CardProductPage setParameterDetailedDescription() {
         ProductModel product = config.getProductModel();
         //todo в переменных добавлять String если это текст
         String detailInfo = getElementText(DETAILED_DESCRIPTION_PRODUCT_STRING);

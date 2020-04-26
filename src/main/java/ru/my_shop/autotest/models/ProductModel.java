@@ -150,7 +150,7 @@ public class ProductModel {
     /**
      * Переопределенный метод toString
      *
-     * @return возвращает все заначения объекта в формате строки
+     * @return возвращает все значения объекта в формате строки
      */
     @Override
     public String toString() {

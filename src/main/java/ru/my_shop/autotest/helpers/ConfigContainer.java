@@ -56,7 +56,7 @@ public class ConfigContainer {
     }
 
     /**
-     * Загружает конфигурацию
+     * Загрузить конфигурацию
      */
     public void loadConfig() {
 

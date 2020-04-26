@@ -31,12 +31,12 @@ public class CartPage extends CommonPage {
     // --------------------------------------------- Методы ------------------------------------------------
 
     /**
-     * Проверяет наличие товара в корзине (наименование, цену, количество и сумму товара)
-     * todo убрать InAmount
+     * Проверить наличие товара в корзине (наименование, цену, количество и сумму товара)
+     *
      * @param amountProduct - количество едениц товара
      * @return this - ссылка на текущий объект
      */
-    public CartPage checkAvailabilityOfProductInAmount(int amountProduct) {
+    public CartPage checkAvailabilityOfProduct(int amountProduct) {
         checkNameProduct();
         checkPriceProduct();
         checkAmountProduct(amountProduct);
@@ -45,20 +45,20 @@ public class CartPage extends CommonPage {
     }
 
     /**
-     * Проверяет наименование товара в корзине
-     *  todo проверяет наличие, а не соответствие имени
+     * Проверить наименование товара в корзине
+     *
      * @return this - ссылка на текущий объект
      */
     private CartPage checkNameProduct() {
         String productName = config.getProductModel().getName();
-        assertTrue("Нет товара в корзине",
-                $x(format(LINK_WITH_NAME_XPATH, productName)).isDisplayed());
-        logger.info("Товар с с именем '{}' присутствует в корзине", productName);
+        assertEquals("Нет товара в корзине или содержит не корректное имя",
+                getElementText($x(format(LINK_WITH_NAME_XPATH, productName))), productName);
+        logger.info("Товар с именем '{}' присутствует в корзине, содержит корректное имя", productName);
         return this;
     }
 
     /**
-     * Проверяет цену товара в корзине
+     * Проверить цену товара в корзине
      *
      * @return this - ссылка на текущий объект
      */
@@ -70,14 +70,14 @@ public class CartPage extends CommonPage {
         String priceProductInCart =
                 getElementText($$x(format(TYPE_SORTING_LINK_XPATH, productName)).get(3)).split(".00")[0];
 
-        assertEquals("Товар содержит не верную цену за единицу товара",
+        assertEquals("Товар содержит не корректную цену за единицу товара",
                 priceProductInCart, priceProduct);
-        logger.info("Товар содержит верную цену '{}' за единицу товара", priceProduct);
+        logger.info("Товар содержит корректную цену '{}' за единицу товара", priceProduct);
         return this;
     }
 
     /**
-     * Проверяет сумму товара в корзине
+     * Проверить сумму товара в корзине
      *
      * @param amountProduct - количество товара
      * @return this - ссылка на текущий объект
@@ -88,13 +88,13 @@ public class CartPage extends CommonPage {
         int sum = Integer.parseInt(priceProduct) * amountProduct;
         String sumInCart = getElementText($$x(format(TYPE_SORTING_LINK_XPATH, productName)).get(5))
                 .split(".00")[0].replace(" ", "");
-        assertEquals("Сумма товара расчитана не верно", sumInCart, Integer.toString(sum));
-        logger.info("Товар содержит верную сумма {}", amountProduct);
+        assertEquals("Сумма товара расчитана не корректно", sumInCart, Integer.toString(sum));
+        logger.info("Товар содержит корректную сумма {}", amountProduct);
         return this;
     }
 
     /**
-     * Проверяет количество товара в корзине
+     * Проверить количество товара в корзине
      *
      * @param amountProduct - количество товара
      * @return this - ссылка на текущий объект
@@ -102,9 +102,9 @@ public class CartPage extends CommonPage {
     private CartPage checkAmountProduct(int amountProduct) {
         // todo amount_field с большой буквы?
         String amountProductInCart = amount_field.getAttribute("value");
-        assertEquals("У товара установлено не верное количество",
+        assertEquals("У товара установлено не корректное количество",
                 amountProductInCart, Integer.toString(amountProduct));
-        logger.info("Товар содержит верное количество {}", amountProduct);
+        logger.info("Товар содержит корректное количество {}", amountProduct);
         return this;
     }
 }
