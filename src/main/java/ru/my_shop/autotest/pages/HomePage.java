@@ -20,7 +20,7 @@ public class HomePage extends CommonPage implements GettingProductInfo {
 
     // ---------------------------------------- ElementsCollection -------------------------------------------
     // Список с информацией о товаре на главной странице
-    private ElementsCollection PRODUCT_INFO_ON_HOME_PAGE_LIST = $$("[data-o='show_case_6'] .hb_text div");
+    private ElementsCollection productInfoOnHomePageList = $$("[data-o='show_case_6'] .hb_text div");
 
     // --------------------------------------------- Методы ------------------------------------------------
 
@@ -49,7 +49,7 @@ public class HomePage extends CommonPage implements GettingProductInfo {
      */
     @Override
     public GettingProductInfo setParameterName(int numberProduct, ProductModel product) {
-        String productName = getElementText(PRODUCT_INFO_ON_HOME_PAGE_LIST.get(0));
+        String productName = getElementText(productInfoOnHomePageList.get(0));
         product.setName(productName);
         logger.info("Установлен параметр 'Наименование' товара - '{}'", productName);
         return this;
@@ -64,7 +64,7 @@ public class HomePage extends CommonPage implements GettingProductInfo {
      */
     @Override
     public GettingProductInfo setParameterPrice(int numberProduct, ProductModel product) {
-        String priceProducts = getElementText(PRODUCT_INFO_ON_HOME_PAGE_LIST.get(2));
+        String priceProducts = getElementText(productInfoOnHomePageList.get(2));
         product.setPrice(priceProducts);
         logger.info("Установлен параметр 'Цена' товара - '{}'", priceProducts);
         return this;

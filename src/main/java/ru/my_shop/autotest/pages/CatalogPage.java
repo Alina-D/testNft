@@ -27,15 +27,15 @@ public class CatalogPage extends CommonPage implements GettingProductInfo {
 
     // ---------------------------------------- ElementsCollection -------------------------------------------
     // Список с именами товаров
-    private ElementsCollection NAME_PRODUCTS_LIST = $$("a[href^='/shop/product'] > b");
+    private ElementsCollection nameProductsList = $$("a[href^='/shop/product'] > b");
     // Список с ценой товаров
-    private ElementsCollection PRICE_PRODUCTS_LIST =
+    private ElementsCollection priceProductsList =
             $$x("//table[@data-o='listgeneral']//sup//../b[1]");
     // Список с кратким описанием товаров
-    private ElementsCollection SHORT_DESCRIPTION_PRODUCTS_LIST =
+    private ElementsCollection shortDescriptionProductsList =
             $$x("//table[@data-o='listgeneral']//td[2]");
     // Список с информацией о наличии и доставке товаров
-    private ElementsCollection AVAILABILITY_AND_DELIVERY_PRODUCTS_INFO_LIST =
+    private ElementsCollection availabilityAndDeliveryProductsInfoList =
             $$x("//table[@data-o='listgeneral']//sup/..");
 
 
@@ -48,7 +48,7 @@ public class CatalogPage extends CommonPage implements GettingProductInfo {
      * @return this - ссылка на текущий объект
      */
     public CatalogPage checkSearchResults(String productName) {
-        NAME_PRODUCTS_LIST.forEach(product -> {
+        nameProductsList.forEach(product -> {
             String nameProduct = getElementText(product).toLowerCase();
             assertTrue(format("Не корректное отображение результатьв поиска. Товар '%s'" +
                     "не содержит '%s'", nameProduct, productName), nameProduct.contains(productName));
@@ -64,7 +64,7 @@ public class CatalogPage extends CommonPage implements GettingProductInfo {
      */
     private ArrayList<ProductModel> getInfoAboutProductsFound() {
         ArrayList<ProductModel> listProduct = new ArrayList<>();
-        for (int index = 0; index < NAME_PRODUCTS_LIST.size() ; index++) {
+        for (int index = 0; index < nameProductsList.size() ; index++) {
             ProductModel product = new ProductModel();
             setProductInfo(index, product);
             listProduct.add(product);
@@ -124,7 +124,7 @@ public class CatalogPage extends CommonPage implements GettingProductInfo {
      * @return this - ссылка на текущий объект
      */
     public CatalogPage openCardProduct(int number) {
-        clickElement(NAME_PRODUCTS_LIST.get(number - 1));
+        clickElement(nameProductsList.get(number - 1));
         logger.info("Открыта карточка товара");
         return this;
     }
@@ -155,7 +155,7 @@ public class CatalogPage extends CommonPage implements GettingProductInfo {
      */
     @Override
     public GettingProductInfo setParameterName(int numberProduct, ProductModel product) {
-        String productName = getElementText(NAME_PRODUCTS_LIST.get(numberProduct));
+        String productName = getElementText(nameProductsList.get(numberProduct));
         product.setName(productName);
         logger.info("Установлен параметр 'Наименование' товара - '{}'", productName);
         return this;
@@ -170,7 +170,7 @@ public class CatalogPage extends CommonPage implements GettingProductInfo {
      */
     @Override
     public GettingProductInfo setParameterPrice(int numberProduct, ProductModel product) {
-        String priceProducts = getElementText(PRICE_PRODUCTS_LIST.get(numberProduct));
+        String priceProducts = getElementText(priceProductsList.get(numberProduct));
         product.setPrice(priceProducts);
         logger.info("Установлен параметр 'Цена' товара - '{}'", priceProducts);
         return this;
@@ -185,7 +185,7 @@ public class CatalogPage extends CommonPage implements GettingProductInfo {
      */
     private CatalogPage setParameterAvailabilityProduct(int numberProduct, ProductModel product) {
         String availabilityAndDeliveryInfo =
-                getElementText(AVAILABILITY_AND_DELIVERY_PRODUCTS_INFO_LIST.get(numberProduct));
+                getElementText(availabilityAndDeliveryProductsInfoList.get(numberProduct));
         String productAvailabilityInfo = availabilityAndDeliveryInfo.substring(
                 availabilityAndDeliveryInfo.indexOf('\n') + 1, availabilityAndDeliveryInfo.indexOf(';'));
         product.setAvailabilityInfo(productAvailabilityInfo);
@@ -202,7 +202,7 @@ public class CatalogPage extends CommonPage implements GettingProductInfo {
      */
     private CatalogPage setParameterDeliveryDate(int numberProduct, ProductModel product) {
         String availabilityAndDeliveryInfo =
-                getElementText(AVAILABILITY_AND_DELIVERY_PRODUCTS_INFO_LIST.get(numberProduct));
+                getElementText(availabilityAndDeliveryProductsInfoList.get(numberProduct));
         String deliveryDate = availabilityAndDeliveryInfo.substring(
                 availabilityAndDeliveryInfo.indexOf(';') + 2, availabilityAndDeliveryInfo.lastIndexOf('\n'));
         product.setDeliveryDate(deliveryDate);
@@ -218,7 +218,7 @@ public class CatalogPage extends CommonPage implements GettingProductInfo {
      * @return this - ссылка на текущий объект
      */
     private CatalogPage setParameterShotDescription(int numberProduct, ProductModel product) {
-        String shotDescriptionProducts = getElementText(SHORT_DESCRIPTION_PRODUCTS_LIST.get(numberProduct));
+        String shotDescriptionProducts = getElementText(shortDescriptionProductsList.get(numberProduct));
         product.setShotDescription(shotDescriptionProducts);
         logger.info("Установлен параметр 'Краткое описание' товара - '{}'", shotDescriptionProducts);
         return this;

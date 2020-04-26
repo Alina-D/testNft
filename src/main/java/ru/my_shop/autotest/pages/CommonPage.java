@@ -32,13 +32,13 @@ public class CommonPage extends AbstractPage {
 
     // ------------------------------------------ SelenideElement ---------------------------------------------
     // Поле "Поиск"
-    private SelenideElement SEARCH_FIELD = $("input#f14_6");
+    private SelenideElement searchField = $("input#f14_6");
     // Кнопка "Поиск"
-    private SelenideElement SEARCH_BUTTON = $("input#search_submit");
+    private SelenideElement searchButton = $("input#search_submit");
     // Ссылка [Корзина]
-    private SelenideElement CARD_LINK = $x("//div[@id = 'cart_total']/..");
+    private SelenideElement cardLink = $x("//div[@id = 'cart_total']/..");
     // Иконка корзины
-    protected SelenideElement CART_ICON = $("#cart_total");
+    protected SelenideElement cartIcon = $("#cart_total");
 
     // --------------------------------------------- Методы ------------------------------------------------
 
@@ -49,11 +49,11 @@ public class CommonPage extends AbstractPage {
      * @return this - ссылка на текущий объект
      */
     public CommonPage searchProduct(String productName) {
-        clearField(SEARCH_FIELD);
+        clearField(searchField);
         logger.info("Поле 'Поиск' очищено");
-        setValueInField(SEARCH_FIELD, productName);
+        setValueInField(searchField, productName);
         logger.info("В поле 'Поиск' установлено значение {}", productName);
-        clickElement(SEARCH_BUTTON);
+        clickElement(searchButton);
         logger.info("Нажата кнопка 'Поиск'");
         return this;
     }
@@ -100,7 +100,7 @@ public class CommonPage extends AbstractPage {
      * @return this - ссылка на текущий объект
      */
     public CommonPage goToCard() {
-        clickElement(CARD_LINK);
+        clickElement(cardLink);
         logger.info("Нажата ссылка [Корзина]");
         return this;
     }
