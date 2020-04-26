@@ -16,7 +16,15 @@ public class ConfigContainer {
 
     // Статический экземпляр этого класса (собственно сам ConfigContainer)
     private static ConfigContainer instance;
+    // Путь к файлу конфигурации
     private static final String PATH_PROPERTIES_FILE = "src/test/resources/config.properties";
+    // Инициализация логгера Logback
+    private static final Logger logger = LoggerFactory.getLogger(AbstractPage.class);
+    // Настройки тестовой среды (считываются из файла config.properties и используются во всех тестовых сценариях)
+    private Properties properties = new Properties();
+    // Объект описывающий товар конкретного тестового сценария (name, price и прочее, что генерируется в ходе теста)
+    // для передачи между шагами теста. Существуют в памяти только во время выполнения теста.
+    private ProductModel productModel = new ProductModel();
 
 
     /**
@@ -28,16 +36,6 @@ public class ConfigContainer {
         }
         return instance;
     }
-
-
-    private static final Logger logger = LoggerFactory.getLogger(AbstractPage.class);
-
-    // Настройки тестовой среды (считываются из файла config.properties и используются во всех тестовых сценариях)
-    private Properties properties = new Properties();
-
-    // Объект описывающий товар конкретного тестового сценария (name, price и прочее, что генерируется в ходе теста)
-    // для передачи между шагами теста. Существуют в памяти только во время выполнения теста.
-    private ProductModel productModel = new ProductModel();
 
     /**
      * Получить значение настройки тестовой среды из файла config.properties

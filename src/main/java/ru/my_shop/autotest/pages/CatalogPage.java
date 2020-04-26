@@ -118,13 +118,13 @@ public class CatalogPage extends CommonPage implements GettingProductInfo {
     }
 
     /**
-     * Открыть карточку товара по номеру в списке каталога
+     * Открыть карточку товара по индексу в списке каталога
      *
-     * @param number номер товара в списке
+     * @param productIndex - индекс товара в списке
      * @return this - ссылка на текущий объект
      */
-    public CatalogPage openProductCard(int number) {
-        clickElement(productNameList.get(number - 1));
+    public CatalogPage openProductCard(int productIndex) {
+        clickElement(productNameList.get(productIndex - 1));
         logger.info("Открыта карточка товара");
         return this;
     }

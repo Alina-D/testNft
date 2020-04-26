@@ -15,7 +15,9 @@ import static com.codeborne.selenide.Selenide.$x;
 public abstract class AbstractPage {
 
     // ------------------------------------------- Поля класса ----------------------------------------------
+
     protected ConfigContainer config;
+    // Инициализация логгера Logback
     protected static final Logger logger = LoggerFactory.getLogger(AbstractPage.class);
     // Допустмое время ожидания появления элемента на странице (миллисекунды)
     protected int waitingTimeMs = 10000;
