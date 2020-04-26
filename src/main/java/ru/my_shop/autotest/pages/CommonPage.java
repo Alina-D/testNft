@@ -36,7 +36,7 @@ public class CommonPage extends AbstractPage {
     // Кнопка "Поиск"
     private SelenideElement searchButton = $("input#search_submit");
     // Ссылка [Корзина]
-    private SelenideElement cardLink = $x("//div[@id = 'cart_total']/..");
+    private SelenideElement cartLink = $x("//div[@id = 'cart_total']/..");
     // Иконка корзины
     protected SelenideElement cartIcon = $("#cart_total");
 
@@ -51,7 +51,7 @@ public class CommonPage extends AbstractPage {
     public CommonPage searchProduct(String productName) {
         clearField(searchField);
         logger.info("Поле 'Поиск' очищено");
-        setValueInField(searchField, productName);
+        setFieldValue(searchField, productName);
         logger.info("В поле 'Поиск' установлено значение {}", productName);
         clickElement(searchButton);
         logger.info("Нажата кнопка 'Поиск'");
@@ -64,7 +64,7 @@ public class CommonPage extends AbstractPage {
      * @param menuElementName - наименование элемента меню
      * @return this - ссылка на текущий объект
      */
-    public CommonPage clickElementMenu(String menuElementName) {
+    public CommonPage clickMenuElement(String menuElementName) {
         clickElement(format(MENU_ELEMENT_WITH_NAME_XPATH, menuElementName));
         logger.info(format("Нажат элемент меню '%s'", menuElementName));
         return this;
@@ -99,8 +99,8 @@ public class CommonPage extends AbstractPage {
      *
      * @return this - ссылка на текущий объект
      */
-    public CommonPage goToCard() {
-        clickElement(cardLink);
+    public CommonPage clickToCartLink() {
+        clickElement(cartLink);
         logger.info("Нажата ссылка [Корзина]");
         return this;
     }
@@ -110,7 +110,7 @@ public class CommonPage extends AbstractPage {
      *
      * @return this - ссылка на текущий объект
      */
-    public CommonPage printInfoProduct() {
+    public CommonPage printProductInfo() {
         ProductModel product = config.getProductModel();
         logger.info(product.toString());
         return this;
@@ -121,10 +121,10 @@ public class CommonPage extends AbstractPage {
      *
      * @return this - ссылка на текущий объект
      */
-    public CommonPage openCardProductByName() {
-        String numberProduct = config.getProductModel().getName();
-        clickElement(format(LINK_WITH_NAME_XPATH, numberProduct));
-        logger.info("Открыта карточка товар по имени: {}", numberProduct);
+    public CommonPage openProductCardByName() {
+        String productName = config.getProductModel().getName();
+        clickElement(format(LINK_WITH_NAME_XPATH, productName));
+        logger.info("Открыта карточка товар по имени: {}", productName);
         return this;
     }
 }

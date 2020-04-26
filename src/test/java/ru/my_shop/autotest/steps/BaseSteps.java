@@ -13,7 +13,7 @@ import ru.my_shop.autotest.pages.*;
 public class BaseSteps extends AbstractSteps {
 
     private CommonPage commonPage = new CommonPage();
-    private CardProductPage cardProductPage = new CardProductPage();
+    private ProductCardPage productCardPage = new ProductCardPage();
     private CatalogPage catalogPage = new CatalogPage();
     private HomePage homePage = new HomePage();
     private CartPage cartPage = new CartPage();
@@ -31,7 +31,7 @@ public class BaseSteps extends AbstractSteps {
 
     @Тогда("^сортирует товары \"([^\"]*)\"$")
     public void sortProduct(String typeSorting) {
-        catalogPage.sortProduct(typeSorting);
+        catalogPage.sortProducts(typeSorting);
     }
 
     @И("^проверяет сортировку товаров в алфавитном порядке$")
@@ -41,13 +41,13 @@ public class BaseSteps extends AbstractSteps {
 
     @И("^откывает карточку товара по имени товара$")
     public void openCardProductByName() {
-        commonPage.openCardProductByName();
-        cardProductPage.checksThatProductCardContainsName();
+        commonPage.openProductCardByName();
+        productCardPage.checkProductCardName();
     }
 
     @Когда("^выводит информацию о товаре$")
     public void printProductInfo() {
-        commonPage.printInfoProduct();
+        commonPage.printProductInfo();
     }
 
     @И("^выбирает раздел \"([^\"]*)\"$")
@@ -56,8 +56,8 @@ public class BaseSteps extends AbstractSteps {
     }
 
     @Когда("^нажимает элемент меню \"([^\"]*)\"$")
-    public void clickElementMenu(String elementName) {
-        commonPage.clickElementMenu(elementName);
+    public void clickMenuElement(String elementName) {
+        commonPage.clickMenuElement(elementName);
     }
 
     @И("^выбирает категорию \"([^\"]*)\"$")
@@ -76,18 +76,18 @@ public class BaseSteps extends AbstractSteps {
     }
 
     @И("^устанавливает количество товара (\\d+) шт в блоке 'Купить'$")
-    public void setAmountOfProductInBuyBlock(int amountProduct) {
-        cardProductPage.setAmountOfProductInBuyBlock(amountProduct);
+    public void setAmountProductInBuyBlock(int amountProduct) {
+        productCardPage.setAmountProductInBuyBlock(amountProduct);
     }
 
     @И("^добавляет товар в корзину из каточки товара$")
     public void addProductToCartFromProductCard() throws InterruptedException {
-        cardProductPage.addProductToCartFromProductCard();
+        productCardPage.addProductToCartFromProductCard();
     }
 
     @И("^переходит в корзину$")
     public void goToCard() {
-        commonPage.goToCard();
+        commonPage.clickToCartLink();
     }
 
     @И("^выводит информацию о найденных товарах$")
@@ -95,16 +95,17 @@ public class BaseSteps extends AbstractSteps {
         catalogPage.printInfoAboutProductsFound();
     }
 
-    @Когда("^получает и сохраняет информацию о товаре на главной странице$")
-    public void getAndSaveProductInfoOnHomePage() {
+    // todo устанавливает сделать сохраняет удалить
+    @Когда("^сохраняет информацию о товаре на главной странице$")
+    public void saveProductInfoOnHomePage() {
         ProductModel product = config.getProductModel();
-        homePage.setProductInfo(0, product);
+        homePage.saveProductInfo(0, product);
     }
 
-    @И("^получает и сохраняет информацию о товаре на карточке товара$")
-    public void getAndSaveProductInfoOnCardProduct() {
+    @И("^сохраняет информацию о товаре на карточке товара$")
+    public void setProductInfoOnCardProduct() {
         ProductModel product = config.getProductModel();
-        cardProductPage.setProductInfo(0, product);
+        productCardPage.saveProductInfo(0, product);
     }
 
     @И("^проверяет наличие и количество товара (\\d+) шт в корзине$")
@@ -112,14 +113,14 @@ public class BaseSteps extends AbstractSteps {
         cartPage.checkAvailabilityOfProduct(amount);
     }
 
-    @И("^получает и сохраняет информацию о товаре на странице каталога$")
-    public void getAndSaveProductInfoOnCatalogPage() {
+    @И("^сохраняет информацию о товаре на странице каталога$")
+    public void setProductInfoOnCatalogPage() {
         ProductModel product = config.getProductModel();
-        catalogPage.setProductInfo(0, product);
+        catalogPage.saveProductInfo(0, product);
     }
 
     @И("^откывает карточку товара по №(\\d+) в списке$")
-    public void openCardProductByNumber(int number) {
-        catalogPage.openCardProduct(number);
+    public void openProductCard(int number) {
+        catalogPage.openProductCard(number);
     }
 }

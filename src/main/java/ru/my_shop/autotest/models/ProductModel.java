@@ -11,12 +11,12 @@ public class ProductModel {
 
     private String name;
     private String price;
-    private String shotDescription;
+    private String shortDescription;
     private String detailedDescription;
     private String availabilityInfo;
     private String deliveryDate;
-    private HashMap<String, String> feature = new HashMap<>();
-    private HashMap<String, String> basicInfo = new HashMap<>();
+    private HashMap<String, String> characteristics = new HashMap<>();
+    private HashMap<String, String> baseInfo = new HashMap<>();
 
     /**
      * Получить имя товара
@@ -41,8 +41,8 @@ public class ProductModel {
      *
      * @return краткое описание товара
      */
-    public String getShotDescription() {
-        return shotDescription;
+    public String getShortDescription() {
+        return shortDescription;
     }
 
     /**
@@ -77,8 +77,8 @@ public class ProductModel {
      *
      * @return основную информацию товара
      */
-    public HashMap<String, String> getBasicInfo() {
-        return basicInfo;
+    public HashMap<String, String> getBaseInfo() {
+        return baseInfo;
     }
 
     /**
@@ -86,8 +86,8 @@ public class ProductModel {
      *
      * @return характеристики товара
      */
-    public HashMap<String, String> getFeature() {
-        return feature;
+    public HashMap<String, String> getCharacteristics() {
+        return characteristics;
     }
 
     /**
@@ -115,11 +115,11 @@ public class ProductModel {
     /**
      * Установить краткое описание товара
      *
-     * @param shotDescription - краткое описание товара
+     * @param shortDescription - краткое описание товара
      * @return this - ссылка на текущий объект
      */
-    public ProductModel setShotDescription(String shotDescription) {
-        this.shotDescription = shotDescription;
+    public ProductModel setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
         return this;
     }
 
@@ -159,22 +159,22 @@ public class ProductModel {
     /**
      * Установить основную информацию
      *
-     * @param basicInfo - основная информация товара
+     * @param baseInfo - основная информация товара
      * @return this - ссылка на текущий объект
      */
-    public ProductModel setBasicInfo(HashMap<String, String> basicInfo) {
-        this.basicInfo = basicInfo;
+    public ProductModel setBaseInfo(HashMap<String, String> baseInfo) {
+        this.baseInfo = baseInfo;
         return this;
     }
 
     /**
      * Установить характеристики
      *
-     * @param feature - характеристики товара
+     * @param characteristics - характеристики товара
      * @return this - ссылка на текущий объект
      */
-    public ProductModel setFeature(HashMap<String, String> feature) {
-        this.feature = feature;
+    public ProductModel setCharacteristics(HashMap<String, String> characteristics) {
+        this.characteristics = characteristics;
         return this;
     }
 
@@ -195,7 +195,7 @@ public class ProductModel {
                         "Дата доставки = %s, \n" +
                         "Базовая информация = %s, \n" +
                         "Характеристики = %s",
-                name, price, shotDescription, detailedDescription, availabilityInfo, deliveryDate, basicInfo, feature);
+                name, price, shortDescription, detailedDescription, availabilityInfo, deliveryDate, baseInfo, characteristics);
     }
 
 }
