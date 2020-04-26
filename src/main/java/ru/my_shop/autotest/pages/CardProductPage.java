@@ -99,35 +99,35 @@ public class CardProductPage extends CommonPage implements GettingProductInfo {
     }
 
     /**
-     * Установить характеристики товара в параметр 'Детальная информация'
-     *  todo разделить арактеристики и детальную инфку в моделе
+     * Установить параметр характеристики товара
+     *
      * @return this - ссылка на текущий объект
      */
     private CardProductPage setParameterProductFeatures() {
-        logger.info("В параметр 'Детальная информация' добавляются характеристики товара");
+        logger.info("Установить параметр 'Характеристики' товара");
         ProductModel product = config.getProductModel();
-        HashMap<String, String> detailInfoProduct = product.getDetailInfo();
+        HashMap<String, String> featureProduct = product.getFeature();
         for (int index = 0; index < NAME_PRODUCT_FEATURES_LIST.size(); index++) {
-            String nameProductFeature = getElementText(NAME_PRODUCT_FEATURES_LIST.get(index));
-            String valueProductFeature = getElementText(VALUE_PRODUCT_FEATURES_LIST.get(index));
-            detailInfoProduct.put(nameProductFeature, valueProductFeature);
-            logger.info("Добавлен ключ: '{}' со значением: '{}'", nameProductFeature, valueProductFeature);
+            String nameFeature = getElementText(NAME_PRODUCT_FEATURES_LIST.get(index));
+            String valueFeature = getElementText(VALUE_PRODUCT_FEATURES_LIST.get(index));
+            featureProduct.put(nameFeature, valueFeature);
+            logger.info("Добавлен ключ: '{}' со значением: '{}'", nameFeature, valueFeature);
         }
         return this;
     }
 
     /**
-     * Установить базовую информацию товара в параметр 'Детальная информация'
+     * Установить основную информацию товара
      *
      * @return this - ссылка на текущий объект
      */
     private CardProductPage setParameterBasicProductInfo() {
-        logger.info("В список 'Детальная информация' добавляется базовая информация товара");
+        logger.info("Установить параметр 'Основная информация' товара");
         ProductModel product = config.getProductModel();
-        HashMap<String, String> detailInfoProduct = product.getDetailInfo();
-        for (SelenideElement productInfo : BASIC_PRODUCT_INFO_LIST) {
-            String[] productInfoList = getElementText(productInfo).split(": ");
-            detailInfoProduct.put(productInfoList[0], productInfoList[1]);
+        HashMap<String, String> basicInfoProduct = product.getBasicInfo();
+        for (SelenideElement basicProductInfo : BASIC_PRODUCT_INFO_LIST) {
+            String[] productInfoList = getElementText(basicProductInfo).split(": ");
+            basicInfoProduct.put(productInfoList[0], productInfoList[1]);
             logger.info("Добавлен ключ: '{}' со значением: '{}'", productInfoList[0], productInfoList[1]);
         }
         return this;
@@ -153,7 +153,6 @@ public class CardProductPage extends CommonPage implements GettingProductInfo {
         return this;
     }
 
-    // todo станавливает или установить?
     /**
      * Установить параметр 'Наименование' товара
      *

@@ -100,7 +100,6 @@ public class CartPage extends CommonPage {
      * @return this - ссылка на текущий объект
      */
     private CartPage checkAmountProduct(int amountProduct) {
-        // todo amount_field с большой буквы?
         String amountProductInCart = amount_field.getAttribute("value");
         assertEquals("У товара установлено не корректное количество",
                 amountProductInCart, Integer.toString(amountProduct));

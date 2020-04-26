@@ -15,7 +15,8 @@ public class ProductModel {
     private String detailedDescription;
     private String availabilityInfo;
     private String deliveryDate;
-    private HashMap<String, String> detailInfo = new HashMap<>();
+    private HashMap<String, String> feature;
+    private HashMap<String, String> basicInfo;
 
     /**
      * Получить имя товара
@@ -72,12 +73,21 @@ public class ProductModel {
     }
 
     /**
-     * Получить детальное описание товара
+     * Получить основную описание товара
      *
-     * @return детальную информацию товара
+     * @return основную информацию товара
      */
-    public HashMap<String, String> getDetailInfo() {
-        return detailInfo;
+    public HashMap<String, String> getBasicInfo() {
+        return basicInfo;
+    }
+
+    /**
+     * Получить характеристики товара
+     *
+     * @return характеристики товара
+     */
+    public HashMap<String, String> getFeature() {
+        return feature;
     }
 
     /**
@@ -146,6 +156,28 @@ public class ProductModel {
         return this;
     }
 
+    /**
+     * Установить основную информацию
+     *
+     * @param basicInfo - основная информация товара
+     * @return this - ссылка на текущий объект
+     */
+    public ProductModel setBasicInfo(HashMap<String, String> basicInfo) {
+        this.basicInfo = basicInfo;
+        return this;
+    }
+
+    /**
+     * Установить характеристики
+     *
+     * @param feature - характеристики товара
+     * @return this - ссылка на текущий объект
+     */
+    public ProductModel setFeature(HashMap<String, String> feature) {
+        this.feature = feature;
+        return this;
+    }
+
 
     /**
      * Переопределенный метод toString
@@ -155,14 +187,15 @@ public class ProductModel {
     @Override
     public String toString() {
         return format("Информация о товаре:  \n" +
-                        "наименование = '%s', \n" +
-                        "цена = '%s', \n" +
-                        "краткое описание = '%s', \n" +
-                        "подробное описание = '%s', \n" +
-                        "наличие = '%s', \n" +
-                        "дата доставки = '%s', \n" +
-                        "детальное описание = %s",
-                name, price, shotDescription, detailedDescription, availabilityInfo, deliveryDate, detailInfo);
+                        "Наименование = '%s', \n" +
+                        "Цена = '%s', \n" +
+                        "Краткое описание = '%s', \n" +
+                        "Подробное описание = '%s', \n" +
+                        "Наличие = '%s', \n" +
+                        "Дата доставки = '%s', \n" +
+                        "Базовая информация = %s",
+                        "Характеристики = %s",
+                name, price, shotDescription, detailedDescription, availabilityInfo, deliveryDate, basicInfo, feature);
     }
 
 }
