@@ -27,15 +27,15 @@ public class CatalogPage extends CommonPage implements GettingProductInfo {
 
     // ---------------------------------------- ElementsCollection -------------------------------------------
     // Список с именами товаров
-    private static final ElementsCollection NAME_PRODUCTS_LIST = $$("a[href^='/shop/product'] > b");
+    private ElementsCollection NAME_PRODUCTS_LIST = $$("a[href^='/shop/product'] > b");
     // Список с ценой товаров
-    private static final ElementsCollection PRICE_PRODUCTS_LIST =
+    private ElementsCollection PRICE_PRODUCTS_LIST =
             $$x("//table[@data-o='listgeneral']//sup//../b[1]");
     // Список с кратким описанием товаров
-    private static final ElementsCollection SHORT_DESCRIPTION_PRODUCTS_LIST =
+    private ElementsCollection SHORT_DESCRIPTION_PRODUCTS_LIST =
             $$x("//table[@data-o='listgeneral']//td[2]");
     // Список с информацией о наличии и доставке товаров
-    private static final ElementsCollection AVAILABILITY_AND_DELIVERY_PRODUCTS_INFO_LIST =
+    private ElementsCollection AVAILABILITY_AND_DELIVERY_PRODUCTS_INFO_LIST =
             $$x("//table[@data-o='listgeneral']//sup/..");
 
 

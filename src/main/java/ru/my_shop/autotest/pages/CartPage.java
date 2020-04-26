@@ -26,7 +26,7 @@ public class CartPage extends CommonPage {
 
     // ------------------------------------------ SelenideElement ---------------------------------------------
     // Поле с количеством товара
-    private static final SelenideElement amount_field = $("input[name^='quantity']");
+    private SelenideElement amount_field = $("input[name^='quantity']");
 
     // --------------------------------------------- Методы ------------------------------------------------
 

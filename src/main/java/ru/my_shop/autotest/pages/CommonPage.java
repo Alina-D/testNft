@@ -32,13 +32,13 @@ public class CommonPage extends AbstractPage {
 
     // ------------------------------------------ SelenideElement ---------------------------------------------
     // Поле "Поиск"
-    private static final SelenideElement SEARCH_FIELD = $("input#f14_6");
+    private SelenideElement SEARCH_FIELD = $("input#f14_6");
     // Кнопка "Поиск"
-    private static final SelenideElement SEARCH_BUTTON = $("input#search_submit");
+    private SelenideElement SEARCH_BUTTON = $("input#search_submit");
     // Ссылка [Корзина]
-    private static final SelenideElement CARD_LINK = $x("//div[@id = 'cart_total']/..");
+    private SelenideElement CARD_LINK = $x("//div[@id = 'cart_total']/..");
     // Иконка корзины
-    protected static final SelenideElement CART_ICON = $("#cart_total");
+    protected SelenideElement CART_ICON = $("#cart_total");
 
     // --------------------------------------------- Методы ------------------------------------------------
 

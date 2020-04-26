@@ -20,11 +20,11 @@ public class HomePage extends CommonPage implements GettingProductInfo {
 
     // ---------------------------------------- ElementsCollection -------------------------------------------
     // Список с информацией о товаре на главной странице
-    private final ElementsCollection PRODUCT_INFO_ON_HOME_PAGE_LIST = $$("[data-o='show_case_6']  .hb_text div");
+    private ElementsCollection PRODUCT_INFO_ON_HOME_PAGE_LIST = $$("[data-o='show_case_6'] .hb_text div");
 
     // --------------------------------------------- Методы ------------------------------------------------
 
-    // todo проверить названия методов
+    // todo проверить названия методов и переменных
 
     /**
      * Установить информацию о товаре

@@ -31,27 +31,27 @@ public class CardProductPage extends CommonPage implements GettingProductInfo {
     // todo static это плохо
     // ------------------------------------------ SelenideElement ---------------------------------------------
     // Поле "Количество товара" в блоке "Купить"
-    private static final SelenideElement AMOUNT_OF_PRODUCT_IN_BUY_BLOCK_FIELD = $("[name='quantity']");
+    private SelenideElement AMOUNT_OF_PRODUCT_IN_BUY_BLOCK_FIELD = $("[name='quantity']");
     // Заголовок с именем товара
-    private static final SelenideElement NAME_PRODUCT_TITLE = $("[itemprop='name']");
+    private SelenideElement NAME_PRODUCT_TITLE = $("[itemprop='name']");
     // Подробное описание товара
-    private static final SelenideElement DETAILED_DESCRIPTION_PRODUCT_STRING = $("[itemprop='description']");
+    private SelenideElement DETAILED_DESCRIPTION_PRODUCT_STRING = $("[itemprop='description']");
     // Информация о наличии и дате доставки товара
-    private static final SelenideElement AVAILABILITY_AND_DELIVERY_PRODUCTS_INFO_STRING =
+    private SelenideElement AVAILABILITY_AND_DELIVERY_PRODUCTS_INFO_STRING =
             $("[itemtype*='schema.org/Offer']");
-    // нформация о цене товара
-    private static final SelenideElement PRICE_PRODUCT_INFO = $("[itemtype='http://schema.org/Offer'] > b");
+    // Иформация о цене товара
+    private SelenideElement PRICE_PRODUCT_INFO = $("[itemtype='http://schema.org/Offer'] > b");
 
 
     // ----------------------------------------- ElementsCollection --------------------------------------------
     // Список с наименованиями характеристик товара
-    private final ElementsCollection NAME_PRODUCT_FEATURES_LIST =
+    private ElementsCollection NAME_PRODUCT_FEATURES_LIST =
             $$x("//div[@id='tabs-1']//tbody//table//tr/td[1]");
     // Список со значениями характеристик товара
-    private final ElementsCollection VALUE_PRODUCT_FEATURES_LIST =
+    private ElementsCollection VALUE_PRODUCT_FEATURES_LIST =
             $$x("//div[@id='tabs-1']//tbody//table//tr/td[2]");
     // Список с основной информацией о товаре
-    private final ElementsCollection BASIC_PRODUCT_INFO_LIST = $$("[data-o='good_description'] table tr");
+    private ElementsCollection BASIC_PRODUCT_INFO_LIST = $$("[data-o='good_description'] table tr");
 
 
     // --------------------------------------------- Методы ------------------------------------------------
