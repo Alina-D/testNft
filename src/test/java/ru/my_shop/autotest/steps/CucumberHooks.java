@@ -7,15 +7,13 @@ import io.github.bonigarcia.wdm.ChromeDriverManager;
 import org.openqa.selenium.WebDriver;
 import ru.my_shop.autotest.helpers.ConfigContainer;
 
-import java.io.IOException;
-
 import static com.codeborne.selenide.Selenide.open;
 import static io.github.bonigarcia.wdm.DriverManagerType.CHROME;
 
 /**
  * Класс описывающий Hooks (код выполняющийся до и после каждого теста)
  */
-public class HooksCucumber extends AbstractSteps {
+public class CucumberHooks extends AbstractSteps {
     private WebDriver driver;
 
     @Before

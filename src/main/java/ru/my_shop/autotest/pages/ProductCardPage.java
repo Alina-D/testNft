@@ -135,7 +135,7 @@ public class ProductCardPage extends CommonPage implements GettingProductInfo {
      * Сохранить информацию о товаре
      *
      * @param productIndex - номер товара в списке каталога
-     * @param product - объект описывающий товар
+     * @param product      - объект описывающий товар
      * @return this - ссылка на текущий объект
      */
     @Override
@@ -152,7 +152,7 @@ public class ProductCardPage extends CommonPage implements GettingProductInfo {
      * Установить параметр 'Наименование' товара
      *
      * @param productIndex - номер товара в списке каталога
-     * @param product - объект описывающий товар
+     * @param product      - объект описывающий товар
      * @return this - ссылка на текущий объект
      */
     @Override
@@ -167,7 +167,7 @@ public class ProductCardPage extends CommonPage implements GettingProductInfo {
      * Установить параметр 'Цена' товара
      *
      * @param productIndex - номер товара в списке каталога
-     * @param product - объект описывающий товар
+     * @param product      - объект описывающий товар
      * @return this - ссылка на текущий объект
      */
     @Override

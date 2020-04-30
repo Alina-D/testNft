@@ -5,8 +5,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.my_shop.autotest.helpers.ConfigContainer;
 
-import static java.lang.String.*;
-
 /**
  * Класс предоставляет базовую работу с шагами для классов-наследников
  */
@@ -24,7 +22,7 @@ public abstract class AbstractSteps {
      * @return строка-разделитель
      */
     protected String getDelimiterString() {
-        return StringUtils.repeat("-",80);
+        return StringUtils.repeat("-", 80);
     }
 
     /**

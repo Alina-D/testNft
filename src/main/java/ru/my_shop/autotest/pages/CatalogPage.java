@@ -64,7 +64,7 @@ public class CatalogPage extends CommonPage implements GettingProductInfo {
      */
     private ArrayList<ProductModel> getInfoAboutProductsFound() {
         ArrayList<ProductModel> productList = new ArrayList<>();
-        for (int index = 0; index < productNameList.size() ; index++) {
+        for (int index = 0; index < productNameList.size(); index++) {
             ProductModel product = new ProductModel();
             saveProductInfo(index, product);
             productList.add(product);
@@ -133,7 +133,7 @@ public class CatalogPage extends CommonPage implements GettingProductInfo {
      * Сохранить информацию о товаре
      *
      * @param productIndex - номер товара в списке каталога
-     * @param product - объект описывающий товар
+     * @param product      - объект описывающий товар
      * @return this - ссылка на текущий объект
      */
     @Override
@@ -150,7 +150,7 @@ public class CatalogPage extends CommonPage implements GettingProductInfo {
      * Установить параметр 'Наименование' товара
      *
      * @param productIndex - номер товара в списке каталога
-     * @param product - объект описывающий товар
+     * @param product      - объект описывающий товар
      * @return this - ссылка на текущий объект
      */
     @Override
@@ -165,7 +165,7 @@ public class CatalogPage extends CommonPage implements GettingProductInfo {
      * Установить параметр 'Цена' товара
      *
      * @param productIndex - номер товара в списке каталога
-     * @param product - объект описывающий товар
+     * @param product      - объект описывающий товар
      * @return this - ссылка на текущий объект
      */
     @Override
@@ -180,7 +180,7 @@ public class CatalogPage extends CommonPage implements GettingProductInfo {
      * Установить параметр 'Наличие' товара
      *
      * @param productIndex - номер товара в списке каталога
-     * @param product - объект описывающий товар
+     * @param product      - объект описывающий товар
      * @return this - ссылка на текущий объект
      */
     private CatalogPage setAvailabilityProductParameter(int productIndex, ProductModel product) {
@@ -197,7 +197,7 @@ public class CatalogPage extends CommonPage implements GettingProductInfo {
      * Установить параметр 'Дата доставки' товара
      *
      * @param productIndex - номер товара в списке каталога
-     * @param product - объект описывающий товар
+     * @param product      - объект описывающий товар
      * @return this - ссылка на текущий объект
      */
     private CatalogPage setDeliveryDateParameter(int productIndex, ProductModel product) {
@@ -214,7 +214,7 @@ public class CatalogPage extends CommonPage implements GettingProductInfo {
      * Установить параметр 'Краткое описание' товара
      *
      * @param productIndex - номер товара в списке каталога
-     * @param product - объект описывающий товар
+     * @param product      - объект описывающий товар
      * @return this - ссылка на текущий объект
      */
     private CatalogPage setShortDescriptionParameter(int productIndex, ProductModel product) {

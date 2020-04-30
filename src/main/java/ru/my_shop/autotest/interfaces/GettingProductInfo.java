@@ -11,7 +11,7 @@ public interface GettingProductInfo {
      * Сохранить информацию товара
      *
      * @param productIndex - номер товара в списке каталога
-     * @param product - объект описывающий товар
+     * @param product      - объект описывающий товар
      * @return this - ссылка на текущий объект
      */
     GettingProductInfo saveProductInfo(int productIndex, ProductModel product);
@@ -20,7 +20,7 @@ public interface GettingProductInfo {
      * Установить параметр 'Наименование' товара
      *
      * @param productIndex - номер товара в списке каталога
-     * @param product - объект описывающий товар
+     * @param product      - объект описывающий товар
      * @return this - ссылка на текущий объект
      */
     GettingProductInfo setNameParameter(int productIndex, ProductModel product);
@@ -29,7 +29,7 @@ public interface GettingProductInfo {
      * Установить параметр 'Цена' товара
      *
      * @param productIndex - номер товара в списке каталога
-     * @param product - объект описывающий товар
+     * @param product      - объект описывающий товар
      * @return this - ссылка на текущий объект
      */
     GettingProductInfo setPriceParameter(int productIndex, ProductModel product);

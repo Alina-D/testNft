@@ -17,8 +17,8 @@ import org.junit.runner.RunWith;
         // делает вывод в консоле более читаемым
         monochrome = true,
 
-        // todo что делает?
-        tags = {"~@Ignore"},
+        // тесты помеченныей данной аннотацией будут проигнорированы
+        tags = "not @Ignore",
 
         // pretty - более подробный вывод в консоль
         // html:target/cucumber-reports/cucumber-pretty - отчеты в формате XML
@@ -28,7 +28,6 @@ import org.junit.runner.RunWith;
                 "html:target/cucumber-reports/cucumber-pretty",
                 "json:target/cucumber-reports/CucumberTestReport.json"})
 
-// todo указать почему файлы с фичами и степами расположенны там где на данный момент расположены
 // Имя класса должно заканчиваться на Test.
 public class CucumberRunnerTest {
 }
