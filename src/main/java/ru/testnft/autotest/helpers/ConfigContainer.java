@@ -1,9 +1,8 @@
-package ru.my_shop.autotest.helpers;
+package ru.testnft.autotest.helpers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.my_shop.autotest.models.ProductModel;
-import ru.my_shop.autotest.pages.AbstractPage;
+import ru.testnft.autotest.pages.AbstractPage;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -22,9 +21,6 @@ public class ConfigContainer {
     private static final Logger logger = LoggerFactory.getLogger(AbstractPage.class);
     // Настройки тестовой среды (считываются из файла config.properties и используются во всех тестовых сценариях)
     private Properties properties = new Properties();
-    // Объект описывающий товар конкретного тестового сценария (name, price и прочее, что генерируется в ходе теста)
-    // для передачи между шагами теста. Существуют в памяти только во время выполнения теста.
-    private ProductModel productModel = new ProductModel();
 
 
     /**
@@ -46,12 +42,6 @@ public class ConfigContainer {
         return this.properties.getProperty(key);
     }
 
-    /**
-     * Получить объект товара
-     */
-    public ProductModel getProductModel() {
-        return productModel;
-    }
 
     /**
      * Загрузить конфигурацию

@@ -1,11 +1,11 @@
-package ru.my_shop.autotest.steps;
+package ru.testnft.autotest.steps;
 
 import com.codeborne.selenide.Configuration;
 import cucumber.api.java.After;
-import cucumber.api.java.Before;
+import io.cucumber.java.Before;
 import io.github.bonigarcia.wdm.ChromeDriverManager;
 import org.openqa.selenium.WebDriver;
-import ru.my_shop.autotest.helpers.ConfigContainer;
+import ru.testnft.autotest.helpers.ConfigContainer;
 
 import static com.codeborne.selenide.Selenide.open;
 import static io.github.bonigarcia.wdm.DriverManagerType.CHROME;
@@ -24,8 +24,10 @@ public class CucumberHooks extends AbstractSteps {
 
         logger.info("Выполняется открытие браузера");
         ChromeDriverManager.getInstance(CHROME).setup();
+
         Configuration.startMaximized = true;
-        open(config.getProperties("url.homePage"));
+        open(config.getProperties("url.authorization"));
+        logger.info("Открыта страница авторизации");
     }
 
     @After

@@ -1,4 +1,4 @@
-package ru.my_shop.autotest;
+package ru.testnft.autotest;
 
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
@@ -9,7 +9,7 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
 
         // путь к фичам
-        features = {"src/test/resource/feature"},
+        features = {"src/test/resources/features"},
 
         // путь к шагам
         glue = {"ru/my_shop/autotest/steps"},

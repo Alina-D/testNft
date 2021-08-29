@@ -1,9 +1,9 @@
-package ru.my_shop.autotest.steps;
+package ru.testnft.autotest.steps;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.my_shop.autotest.helpers.ConfigContainer;
+import ru.testnft.autotest.helpers.ConfigContainer;
 
 /**
  * Класс предоставляет базовую работу с шагами для классов-наследников

@@ -1,9 +1,9 @@
-package ru.my_shop.autotest.pages;
+package ru.testnft.autotest.pages;
 
 import com.codeborne.selenide.SelenideElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.my_shop.autotest.helpers.ConfigContainer;
+import ru.testnft.autotest.helpers.ConfigContainer;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
