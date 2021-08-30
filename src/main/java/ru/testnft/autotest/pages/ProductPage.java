@@ -1,10 +1,12 @@
 package ru.testnft.autotest.pages;
 
 import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.SelenideElement;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 import static java.lang.String.format;
+import static org.junit.Assert.*;
 
 /**
  * Класс описывающий страницу "Главная страница"
@@ -90,6 +92,7 @@ public class ProductPage extends CommonPage {
                 "XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.click();",
                 element);
 
+        logger.info(format("Будет выполнен скрипт: [%s]", script));
         executeJavaScript(format(script, element));
         logger.info(format("Кнопка [%s] появилась. Выполнено нажатие на кнопку.", btnName));
     }
@@ -99,7 +102,37 @@ public class ProductPage extends CommonPage {
      *
      * @param count - имя кнопки
      */
-    public void setCountBoxes(int count) {
-        getSelenide(COUNT_XPATH);
+    public void setCountBoxes(String count) {
+        SelenideElement countInput = getSelenide(COUNT_XPATH);
+        countInput.waitUntil(visible, 600000, intervalMs);
+        logger.info("Поле количества боксов появилось на странице");
+
+        String script = format (
+            "document.evaluate(\"%s\", document, null, " +
+                "XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.value = \"%s\"",
+                COUNT_XPATH, count);
+
+        logger.info(format("Будет выполнен скрипт: [%s]", script));
+        executeJavaScript(script);
+        logger.info(format("Скрипт выполнен: [%s]", script));
+
+        String currentCountBoxes = countInput.getAttribute("value");
+        if (!currentCountBoxes.equals(count)) {
+            logger.info("Кол-во боксов НЕ установлено в поле!!!");
+            logger.info(format("Текущее кол-во боксов: [%s]", currentCountBoxes));
+            logger.info("Выполняется установка с помощью кнопки [+]");
+
+            int countTries = 1;
+            while (countTries < Integer.parseInt(count)) {
+                getSelenide(PLUS_XPATH).click();
+                countTries++;
+                logger.info(format("Выполнено нажатие на [+]. Кол-во установленных боксов: [%s]", countTries));
+            }
+
+            assertEquals("Кол-во в поле не соответствует кол-ву выставляемых боксов",
+                    count, getSelenide(COUNT_XPATH).getAttribute("value"));
+
+            logger.info(format("Установлено верное кол-во боксов: [%s]",count));
+        }
     }
 }

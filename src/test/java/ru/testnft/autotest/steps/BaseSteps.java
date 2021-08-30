@@ -48,8 +48,8 @@ public class BaseSteps extends AbstractSteps {
 
     }
 
-    @And("устанавливаем кол-во боксов - {int}")
-    public void setCountBox(int count) {
+    @And("устанавливаем кол-во боксов - {string}")
+    public void setCountBox(String count) {
         printStepName(format("Устанавливаем кол-во боксов %s", count));
         productPage.setCountBoxes(count);
     }
