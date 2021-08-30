@@ -41,18 +41,20 @@ public class ProductPage extends CommonPage {
         boolean hour = getTime("ч.").equals("00");
         boolean min = Integer.parseInt(getTime("мин.")) < 10;
 
+        printTimeBeforeBidding();
+
         while (!(day && hour && min)) {
 
             sleep(500000);
             refresh();
 
             day = getTime("дн.").equals("00");
-            hour = getTime("ч.").equals("00");
-            min = Integer.parseInt(getTime("мин.")) < 10;
+            hour = Integer.parseInt(getTime("ч.")) < 50;
+            min = Integer.parseInt(getTime("мин.")) < 50;
 
             printTimeBeforeBidding();
         }
-
+        logger.info("Осталось менее 10 мин. до начала продаж!!!");
     }
 
     /**

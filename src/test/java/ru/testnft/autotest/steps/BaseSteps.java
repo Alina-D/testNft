@@ -30,9 +30,9 @@ public class BaseSteps extends AbstractSteps {
         logger.info(format("Открыта страница с Url [%s]", url));
     }
 
-    @And("обновляем страницу за 10 мин до начала продаж обновляем страницу")
+    @And("обновляем страницу за 10 мин до начала продаж")
     public void refreshPage() {
-        printStepName("Обновляем страницу за %s мин до начала продаж обновляем страницу");
+        printStepName("Обновляем страницу за %s мин до начала продаж");
         productPage.refreshBoxPage();
     }
 
@@ -61,7 +61,7 @@ public class BaseSteps extends AbstractSteps {
     }
 
     @And("принимаем условия Nft-маркета при наличии окна")
-    public void принимаемУсловияNftМаркетаПриНаличииОкна() {
+    public void acceptTerms() {
         printStepName("Принимаем условия Nft-маркета при наличии окна");
         commonPage.acceptTerms();
     }
