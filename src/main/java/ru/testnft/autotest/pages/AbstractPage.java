@@ -19,10 +19,12 @@ public abstract class AbstractPage {
     protected ConfigContainer config;
     // Инициализация логгера Logback
     protected static final Logger logger = LoggerFactory.getLogger(AbstractPage.class);
-    // Допустмое время ожидания появления элемента на странице (миллисекунды)
+    // Допустимое время ожидания появления элемента на странице (миллисекунды)
     protected int waitingTimeMs = 10000;
+    // Ожидания появления элемента на странице (10 мин. в миллисекундах)
+    protected int waitingTime10Min = 600000;
     // Интервал времени проверки появление ожидаемого элемента на странице (миллисекунды)
-    protected long intervalMs = 50;
+    protected int intervalMs = 50;
 
     // ------------------------------------------- Конструктор -----------------------------------------------
     public AbstractPage() {
@@ -37,7 +39,7 @@ public abstract class AbstractPage {
      * @param locator локатор элемента
      * @return элемент типа SelenideElement ($x или $)
      */
-    protected SelenideElement getSelenideElement(String locator) {
+    protected SelenideElement getSelenide(String locator) {
         return locator.contains("//") ? $x(locator) : $(locator);
     }
 
@@ -56,7 +58,7 @@ public abstract class AbstractPage {
      * @param locator - локатор элемента (String)
      */
     protected void clickElement(String locator) {
-        getSelenideElement(locator).waitUntil(visible, waitingTimeMs, intervalMs).click();
+        getSelenide(locator).waitUntil(visible, waitingTimeMs, intervalMs).click();
     }
 
     /**

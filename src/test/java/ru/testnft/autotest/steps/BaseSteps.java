@@ -16,7 +16,7 @@ public class BaseSteps extends AbstractSteps {
     private final CommonPage commonPage = new CommonPage();
     private final ProductPage productPage = new ProductPage();
 
-    @When("ожидаем авторизацию {int} минут")
+    @When("ожидаем авторизацию в течении {int} минут")
     public void waitAuthorization(int min) {
         printStepName(format("Ожидаем авторизацию %s минут", min));
         commonPage.waitAuthorization("Панель инструментов", min);
@@ -36,10 +36,10 @@ public class BaseSteps extends AbstractSteps {
         productPage.refreshBoxPage();
     }
 
-    @And("ожидаем кнопку {string}")
+    @And("ожидаем кнопку {string} и нажимаем")
     public void waitBtn(String btnName) {
         printStepName(format("Ожидаем кнопку %s", btnName));
-
+        productPage.waitAndClickBtn(btnName);
     }
 
     @And("нажимаем кнопку {string}")
@@ -48,15 +48,21 @@ public class BaseSteps extends AbstractSteps {
 
     }
 
-    @And("устанавливаем кол-во боксов - {string}")
-    public void setCountBox(String count) {
+    @And("устанавливаем кол-во боксов - {int}")
+    public void setCountBox(int count) {
         printStepName(format("Устанавливаем кол-во боксов %s", count));
+        productPage.setCountBoxes(count);
+    }
+
+    @And("проверяем покупку бокса в кол-ве {int} шт")
+    public void checkCountOfPurchasedBoxes(int count) {
+        printStepName(format("Проверяем покупку бокса в кол-ве %s", count));
 
     }
 
-    @And("проверяем покупку бокса в кол-ве {string} шт")
-    public void checkCountOfPurchasedBoxes(String count) {
-        printStepName(format("Проверяем покупку бокса в кол-ве %s", count));
-
+    @And("принимаем условия Nft-маркета при наличии окна")
+    public void принимаемУсловияNftМаркетаПриНаличииОкна() {
+        printStepName("Принимаем условия Nft-маркета при наличии окна");
+        commonPage.acceptTerms();
     }
 }

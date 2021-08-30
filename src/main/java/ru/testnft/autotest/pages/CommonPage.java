@@ -1,12 +1,9 @@
 package ru.testnft.autotest.pages;
 
-import com.codeborne.selenide.SelenideElement;
-
 import java.util.concurrent.TimeUnit;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$x;
 import static java.lang.String.format;
 
 /**
@@ -23,9 +20,10 @@ public class CommonPage extends AbstractPage {
 
     // ---------------------------------------------- String -------------------------------------------------
 
-    // Элемент меню с указанным наименованием (на странице содержится несколько элементов меню)
-    private static final String TOOLBAR_XPATH = "//div[contains(text(), '%s')]";
-
+    // Div с указанным текстом
+    private static final String DIV_TEXT_XPATH = "//div[contains(text(), '%s')]";
+    // Кнопка с указанным текстом
+    public static final String BTN_TEXT_XPATH = "//button[contains(text(), '%s')]";
 
     // --------------------------------------------- Методы ------------------------------------------------
 
@@ -34,16 +32,20 @@ public class CommonPage extends AbstractPage {
      *
      * @param elementText - текст элемента
      * @param min - минуты ожидания
-     * @return this - ссылка на текущий объект
      */
-    public CommonPage waitAuthorization(String elementText, int min) {
-        long minutes = TimeUnit.MILLISECONDS.toMinutes(min);
-        getSelenideElement(format(TOOLBAR_XPATH, elementText)).waitUntil(visible, minutes, intervalMs);
+    public void waitAuthorization(String elementText, int min) {
+        long minutes = TimeUnit.MINUTES.toMillis(min);
+        getSelenide(format(DIV_TEXT_XPATH, elementText)).waitUntil(visible, minutes, intervalMs);
         logger.info("Элемент с названием %s присутствует на странице");
-        return this;
     }
 
 
-
-
+    /**
+     * При всплывании окна "Условия и положения NFT-маркетплейса Binance" принимает условия
+     */
+    public void acceptTerms() {
+        if (getSelenide(format(DIV_TEXT_XPATH, "Условия и положения NFT-маркетплейса Binance")).isDisplayed()) {
+            getSelenide(format(BTN_TEXT_XPATH, "Принять")).waitUntil(visible, waitingTime10Min, intervalMs).click();
+        }
+    }
 }
