@@ -81,8 +81,17 @@ public class ProductPage extends CommonPage {
      * @param btnName - имя кнопки
      */
     public void waitAndClickBtn(String btnName) {
-        getSelenide(format(BTN_TEXT_XPATH, btnName)).waitUntil(visible, 600000, intervalMs).click();
-        logger.info("Кнопка [%s] появилась. Выполнено нажатие на кнопку.");
+        String element = format(BTN_TEXT_XPATH, btnName);
+
+        getSelenide(element).waitUntil(visible, 600000, intervalMs);
+
+        String script = format(
+                "document.evaluate(\"%s\", document, null, " +
+                "XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.click();",
+                element);
+
+        executeJavaScript(format(script, element));
+        logger.info(format("Кнопка [%s] появилась. Выполнено нажатие на кнопку.", btnName));
     }
 
     /**
