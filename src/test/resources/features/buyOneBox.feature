@@ -1,8 +1,8 @@
-@addProductInCart
+@buyOneBox
 
-Feature: Проверка основного функционала Интернет-магазина my-shop.ru
+Feature: Покупка одного бокса
 
-  Scenario: Добавление товаров в корзину
+  Scenario: Покупка одного бокса
     When ожидаем авторизацию в течении 10 минут
     And открываем страницу покупки боксов по Url "https://www.binance.com/ru/nft/blindBox/detail?productId=127630597802689536"
     And принимаем условия Nft-маркета при наличии окна

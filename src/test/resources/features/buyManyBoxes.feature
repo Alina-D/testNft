@@ -1,8 +1,8 @@
-@addProductInCart
+@buyManyBoxes
 
-Feature: Проверка основного функционала Интернет-магазина my-shop.ru
+Feature: Покупка нескольких боксов
 
-  Scenario: Добавление товаров в корзину
+  Scenario: Покупка нескольких боксов
     When ожидаем авторизацию в течении 10 минут
     And открываем страницу покупки боксов по Url "https://www.binance.com/ru/nft/blindBox/detail?productId=127630597802689536"
     And принимаем условия Nft-маркета при наличии окна

@@ -24,7 +24,7 @@ public abstract class AbstractPage {
     // Ожидания появления элемента на странице (10 мин. в миллисекундах)
     protected int waitingTime10Min = 600000;
     // Интервал времени проверки появление ожидаемого элемента на странице (миллисекунды)
-    protected int intervalMs = 50;
+    protected int intervalMs = 2;
 
     // ------------------------------------------- Конструктор -----------------------------------------------
     public AbstractPage() {
