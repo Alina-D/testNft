@@ -49,8 +49,8 @@ public class ProductPage extends CommonPage {
             refresh();
 
             day = getTime("дн.").equals("00");
-            hour = Integer.parseInt(getTime("ч.")) < 50;
-            min = Integer.parseInt(getTime("мин.")) < 50;
+            hour = getTime("ч.").equals("00");
+            min = Integer.parseInt(getTime("мин.")) < 10;
 
             printTimeBeforeBidding();
         }
