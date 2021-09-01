@@ -78,7 +78,7 @@ public class ProductPage extends CommonPage {
     }
 
     /**
-     * Нажимает кнопку с указанным именем
+     * Ждет и нажимает кнопку с указанным именем
      *
      * @param btnName - имя кнопки
      */

@@ -42,22 +42,10 @@ public class BaseSteps extends AbstractSteps {
         productPage.waitAndClickBtn(btnName);
     }
 
-    @And("нажимаем кнопку {string}")
-    public void clickBtn(String btnName) {
-        printStepName(format("Нажимаем кнопку %s", btnName));
-
-    }
-
     @And("устанавливаем кол-во боксов - {string}")
     public void setCountBox(String count) {
         printStepName(format("Устанавливаем кол-во боксов %s", count));
         productPage.setCountBoxes(count);
-    }
-
-    @And("проверяем покупку бокса в кол-ве {int} шт")
-    public void checkCountOfPurchasedBoxes(int count) {
-        printStepName(format("Проверяем покупку бокса в кол-ве %s", count));
-
     }
 
     @And("принимаем условия Nft-маркета при наличии окна")

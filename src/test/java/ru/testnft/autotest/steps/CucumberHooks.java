@@ -32,10 +32,12 @@ public class CucumberHooks extends AbstractSteps {
 
     @After
     public void teardown() {
-        logger.info("Выполняется закрытие браузера");
-        if (driver != null) {
-            driver.quit();
-        }
+          logger.info("Тест выполнен. Браузер автоматически НЕ закрывается!!!");
+
+//        logger.info("Выполняется закрытие браузера");
+//        if (driver != null) {
+//            driver.quit();
+//        }
     }
 
 }
