@@ -1,3 +1,4 @@
 .idea
 target
-myshopru.iml
+testnft.iml
+build/reports/tests
